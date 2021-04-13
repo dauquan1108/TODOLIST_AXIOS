@@ -1,0 +1,175 @@
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 60px;
+    height: 34px;
+    margin: 5%;
+}
+
+.switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    -webkit-transition: .4s;
+    transition: .4s;
+}
+
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 26px;
+    width: 26px;
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    -webkit-transition: .4s;
+    transition: .4s;
+}
+
+input:checked+.slider {
+    background-color: #2196F3;
+}
+
+input:focus+.slider {
+    box-shadow: 0 0 1px #2196F3;
+}
+
+input:checked+.slider:before {
+    -webkit-transform: translateX(26px);
+    -ms-transform: translateX(26px);
+    transform: translateX(26px);
+}
+
+.slider.round {
+    border-radius: 34px;
+}
+
+.slider.round:before {
+    border-radius: 50%;
+}
+
+.App {
+    text-align: center;
+    width: 40%;
+    margin: auto;
+    background-color: #4a484840;
+    border-radius: 5px;
+    box-shadow: 0 26.2px 21.2px rgba(0, 0, 0, 0.07), 0 33.4px 33.1px rgba(0, 0, 0, 0.137), 0 35.5px 40.8px rgba(0, 0, 0, 0.208), 0 35.8px 47.8px rgba(0, 0, 0, 0.29), 0 37px 57px rgba(0, 0, 0, 0.39);
+}
+
+.Header {
+    width: 100%;
+    padding: 5px;
+    height: 68px;
+    padding-top: 15px;
+    background-color: #79666600;
+}
+
+
+/* .ContentToDoList {
+    height: 300px;
+    overflow: hidden;
+    overflow-y: scroll;
+} */
+
+input {
+    width: 79%;
+    height: 38px;
+    border: none;
+    background-color: #4a484800;
+    padding-left: 10px;
+    color: inherit;
+}
+
+input:focus {
+    outline: 0;
+}
+
+.button {
+    width: 77px;
+    height: 38px;
+    background: #37393600;
+    color: #e26e29;
+    font-weight: bolder;
+}
+
+.button:hover {
+    transition: all 2s;
+}
+
+.image {
+    vertical-align: middle;
+    border-style: none;
+    width: 35px;
+    padding: 5px;
+    cursor: pointer;
+}
+
+.image_ {
+    vertical-align: middle;
+    border-style: none;
+    width: 39px;
+    padding: 6px;
+    transform: scaleY(-1);
+    cursor: pointer;
+}
+
+.Item {
+    width: 97%;
+    height: auto;
+    margin: 10px;
+}
+
+.CheckBox {
+    float: left;
+    width: 22px;
+    margin-left: 20px;
+    margin-top: -7px;
+}
+
+.ItemText {
+    width: 85%;
+    float: left;
+}
+
+.Item-Complete {
+    text-decoration: line-through;
+    opacity: 0.3;
+}
+
+.Pen {
+    width: 25px;
+    opacity: 0;
+    margin-right: 10px;
+    cursor: pointer;
+}
+
+.Item:hover .Pen {
+    opacity: 1;
+}
+
+.Delete {
+    width: 25px;
+    opacity: 0;
+    transition: all 0.2s;
+    cursor: pointer;
+}
+
+.Item:hover .Delete {
+    opacity: 0.5;
+}
+
+.FooTer {
+    height: 45px;
+    padding-top: 1.5%;
+}
