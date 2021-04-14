@@ -5,10 +5,15 @@ import "./HeaDer.css";
 
 class ToDoList extends Component {
   render() {
-    const { toDoList, onClickCheckBox, onDeleteItem, onClickPen } = this.props;
+    const {
+      toDoListView,
+      onClickCheckBox,
+      onDeleteItem,
+      onClickPen,
+    } = this.props;
     return (
       <div className="ContentToDoList">
-        {toDoList.map((item) => {
+        {toDoListView.map((item) => {
           return (
             <Item
               key={item.id}

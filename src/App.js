@@ -24,26 +24,26 @@ class App extends Component {
 
   componentDidMount() {
     //c2 lay chuyen
-    CallApi("get", null).then((response) => {
-      this.setState({
-        toDoList: response.data,
-      });
-    });
+    // CallApi("get", null).then((response) => {
+    //   this.setState({
+    //     toDoList: response.data,
+    //   });
+    // });
 
     // c1 lay truc tiep
-    // axios({
-    //   method: "get",
-    //   url: "https://5c965f64939ad600149a94f9.mockapi.io/ToDoList",
-    //   data: null,
-    // })
-    //   .then((response) => {
-    //     this.setState({
-    //       toDoList: response.data,
-    //     });
-    //   })
-    //   .catch((error) => {
-    //     console.log(error);
-    //   });
+    axios({
+      method: "get",
+      url: "https://5c965f64939ad600149a94f9.mockapi.io/ToDoList",
+      data: null,
+    })
+      .then((response) => {
+        this.setState({
+          toDoList: response.data,
+        });
+      })
+      .catch((error) => {
+        console.log(error);
+      });
     // luu tru tren localstorage
     // let toDoList = JSON.parse(localStorage.getItem("keyToDoList")) || [];
     // this.setState({
@@ -58,11 +58,11 @@ class App extends Component {
     let toDoListCompleted = toDoList.filter((num) => num.isComplete);
     switch (statusShow) {
       case "active": {
-        toDoList = toDoList.filter((num) => !num.isComplete);
+        toDoListView = toDoList.filter((num) => !num.isComplete);
         break;
       }
       case "completed": {
-        toDoList = toDoListCompleted;
+        toDoListView = toDoListCompleted;
         break;
       }
       default: {
@@ -260,7 +260,13 @@ class App extends Component {
   };
 
   render() {
-    const { toDoEditing, statusShow, toDoList, isCompletedAll } = this.state;
+    const {
+      toDoListView,
+      toDoEditing,
+      statusShow,
+      toDoList,
+      isCompletedAll,
+    } = this.state;
     let { theme, toggleTheme } = this.context;
     const numberToDoActive = this.getNumberToDoActive();
     return (
@@ -288,7 +294,7 @@ class App extends Component {
               ref={this.myHeader}
             />
             <ToDoList
-              toDoList={toDoList}
+              toDoListView={toDoListView}
               onClickCheckBox={this.onClickCheckBox}
               onClickPen={this.onClickPen}
               onDeleteItem={this.onDeleteItem}
