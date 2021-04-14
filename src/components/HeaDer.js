@@ -72,7 +72,6 @@ class HeaDer extends Component {
             ref={this.input}
           />
           <input className="button" type="submit" value="Submit" />
-          <hr />
         </form>
       </div>
     );

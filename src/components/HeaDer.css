@@ -71,8 +71,9 @@ input:checked+.slider:before {
     width: 100%;
     padding: 5px;
     height: 68px;
-    padding-top: 15px;
+    padding-top: 16px;
     background-color: #79666600;
+    border-bottom: 1px solid #b0a9a9c7;
 }
 
 
@@ -125,21 +126,22 @@ input:focus {
 }
 
 .Item {
-    width: 97%;
-    height: auto;
-    margin: 10px;
+    width: 100%;
+    height: 50px;
+    padding: 2px;
+    border-bottom: 1px solid #b0a9a9c7;
 }
 
 .CheckBox {
     float: left;
-    width: 22px;
-    margin-left: 20px;
-    margin-top: -7px;
+    width: 23px;
+    margin: 4px 4px 4px 27px;
 }
 
 .ItemText {
-    width: 85%;
+    width: 80%;
     float: left;
+    margin: 10px;
 }
 
 .Item-Complete {
@@ -150,7 +152,8 @@ input:focus {
 .Pen {
     width: 25px;
     opacity: 0;
-    margin-right: 10px;
+    margin-right: 15px;
+    margin: 10px;
     cursor: pointer;
 }
 

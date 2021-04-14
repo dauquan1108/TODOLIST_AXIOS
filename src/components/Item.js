@@ -27,21 +27,18 @@ class Item extends Component {
           onChange={() => {}}
         />
         <p className={nameClass}>{item.title}</p>
-        {/* Cach truyen du lieu truc tiep:  de toi dam code*/}
         <img
           alt="Img update"
           className="Pen"
           src={penImg}
           onClick={() => onClickPen(item)}
         />
-        {/* onClick={() => onDeleteItem(item.id) */}
         <img
           alt="Img delete"
           className="Delete"
           src={deleteImg}
           onClick={this.onDeleteItemTodo}
         />
-        <hr />
       </div>
     );
   }

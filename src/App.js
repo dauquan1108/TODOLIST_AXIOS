@@ -5,7 +5,7 @@ import HeaDer from "./components/HeaDer";
 import ToDoList from "./components/ToDoList";
 import Footer from "./components/Footer";
 import ThemeContext from "./conText/Theme-Context";
-import Cong from "./tuan6/Cong";
+// import Cong from "./tuan6/Cong";
 //----axios----
 import axios from "axios";
 import CallApi from "./utils/CallApi";
@@ -54,7 +54,7 @@ class App extends Component {
   static getDerivedStateFromProps(props, state) {
     // TODO: Tính toán lại thằng toDoListView dựa trên thằng toDoList, statusShow
     const { toDoList, statusShow } = state;
-    //let toDoListView = toDoList;
+    let toDoListView = toDoList;
     let toDoListCompleted = toDoList.filter((num) => num.isComplete);
     switch (statusShow) {
       case "active": {
@@ -70,7 +70,7 @@ class App extends Component {
       }
     }
     return {
-      //toDoListView,
+      toDoListView,
       isCompletedAll: toDoListCompleted.length === toDoList.length,
     };
   }
@@ -80,7 +80,21 @@ class App extends Component {
     CallApi("post", {
       title: value,
       isComplete: false,
-    }).then((response) => {});
+    }).then((response) => {
+      axios({
+        method: "get",
+        url: "https://5c965f64939ad600149a94f9.mockapi.io/ToDoList",
+        data: null,
+      })
+        .then((response) => {
+          this.setState({
+            toDoList: response.data,
+          });
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    });
 
     // const { toDoList } = this.state;
     // const Test = [
@@ -101,16 +115,27 @@ class App extends Component {
   };
 
   handleUpdate = (todoItem, textEdit) => {
-    const { toDoList } = this.state;
-    toDoList.map((item) => {
-      if (item.id === todoItem.id) {
-        item.title = textEdit;
+    axios({
+      url: `https://5c965f64939ad600149a94f9.mockapi.io/ToDoList/${todoItem.id}`,
+      method: "put",
+      data: {
+        title: textEdit,
+      },
+    }).then((response) => {
+      if (response.status === 200) {
+        const { toDoList } = this.state;
+        toDoList.map((item) => {
+          if (item.id === todoItem.id) {
+            item.title = textEdit;
+          }
+        });
+        this.setState({
+          toDoList: toDoList,
+          toDoEditing: {},
+        });
       }
     });
-    this.setState({
-      toDoList: toDoList,
-      toDoEditing: {},
-    });
+
     //localStorage.setItem("keyToDoList", JSON.stringify(toDoListView));
   };
 
@@ -162,11 +187,21 @@ class App extends Component {
     const { toDoList } = this.state;
     toDoList.map((item) => {
       if (item.isComplete === false) {
-        item.isComplete = true;
+        axios({
+          url: `https://5c965f64939ad600149a94f9.mockapi.io/ToDoList/${item.id}`,
+          method: "put",
+          data: {
+            isComplete: true,
+          },
+        }).then((response) => {
+          if (response.status === 200) {
+            item.isComplete = true;
+          }
+          this.setState({
+            toDoList,
+          });
+        });
       }
-    });
-    this.setState({
-      toDoList,
     });
   };
 
@@ -174,11 +209,21 @@ class App extends Component {
     const { toDoList } = this.state;
     toDoList.map((item) => {
       if (item.isComplete === true) {
-        item.isComplete = false;
+        axios({
+          url: `https://5c965f64939ad600149a94f9.mockapi.io/ToDoList/${item.id}`,
+          method: "put",
+          data: {
+            isComplete: false,
+          },
+        }).then((response) => {
+          if (response.status === 200) {
+            item.isComplete = false;
+          }
+          this.setState({
+            toDoList,
+          });
+        });
       }
-    });
-    this.setState({
-      toDoList,
     });
   };
 
@@ -195,9 +240,22 @@ class App extends Component {
   };
 
   removeAllToDoListCompleted = () => {
+    debugger;
     const { toDoList } = this.state;
-    this.setState({
-      toDoList: toDoList.filter((num) => !num.isComplete),
+    toDoList.map((item) => {
+      if (item.isComplete === true) {
+        axios({
+          method: "delete",
+          url: `https://5c965f64939ad600149a94f9.mockapi.io/ToDoList/${item.id}`,
+          data: null,
+        }).then((response) => {
+          if (response.status === 200) {
+            this.setState({
+              toDoList: toDoList.filter((num) => !num.isComplete),
+            });
+          }
+        });
+      }
     });
   };
 
@@ -245,9 +303,6 @@ class App extends Component {
               />
             )}
           </div>
-        </div>
-        <div>
-          <Cong />
         </div>
       </div>
     );
