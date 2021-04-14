@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { v4 as uuIdv4 } from "uuid";
+// import { v4 as uuIdv4 } from "uuid";
 import "./components/HeaDer.css";
 import HeaDer from "./components/HeaDer";
 import ToDoList from "./components/ToDoList";
@@ -94,6 +94,8 @@ class App extends Component {
         .catch((error) => {
           console.log(error);
         });
+    }).catch((error)=>{
+      console.log("Lỗi thêm mới !!!", error);
     });
 
     // const { toDoList } = this.state;
@@ -124,7 +126,7 @@ class App extends Component {
     }).then((response) => {
       if (response.status === 200) {
         const { toDoList } = this.state;
-        toDoList.map((item) => {
+        toDoList.map(item => {
           if (item.id === todoItem.id) {
             item.title = textEdit;
           }
@@ -134,6 +136,8 @@ class App extends Component {
           toDoEditing: {},
         });
       }
+    }).catch((error)=>{
+      console.log("Lỗi sửa !",error);
     });
 
     //localStorage.setItem("keyToDoList", JSON.stringify(toDoListView));
@@ -153,6 +157,8 @@ class App extends Component {
           toDoList: deleteItem,
         });
       }
+    }).catch((error)=>{
+      console.log("Xóa thất bại !", error);
     });
 
     //localStorage.setItem("keyToDoList", JSON.stringify(todoListDeleted));
@@ -200,6 +206,8 @@ class App extends Component {
           this.setState({
             toDoList,
           });
+        }).catch((error)=>{
+          console.log("Lỗi check All !", error);
         });
       }
     });
@@ -222,6 +230,8 @@ class App extends Component {
           this.setState({
             toDoList,
           });
+        }).catch((error)=>{
+          console.log("Lỗi check all !", error);
         });
       }
     });
@@ -254,6 +264,8 @@ class App extends Component {
               toDoList: toDoList.filter((num) => !num.isComplete),
             });
           }
+        }).catch((error)=>{
+          console.log("Lỗi RemoveAll !", error);
         });
       }
     });

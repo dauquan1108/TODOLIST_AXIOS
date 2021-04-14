@@ -135,11 +135,11 @@ input:focus {
 .CheckBox {
     float: left;
     width: 23px;
-    margin: 4px 4px 4px 27px;
+    margin: 4px 4px 4px 15px;
 }
 
 .ItemText {
-    width: 80%;
+    width: 73%;
     float: left;
     margin: 10px;
 }
