@@ -135,7 +135,7 @@ input:focus {
 .CheckBox {
     float: left;
     width: 23px;
-    margin: 4px 4px 4px 15px;
+    margin: 4px 4px 4px 25px;
 }
 
 .ItemText {
@@ -152,7 +152,7 @@ input:focus {
 .Pen {
     width: 25px;
     opacity: 0;
-    margin-right: 15px;
+    margin-right: 5px;
     margin: 10px;
     cursor: pointer;
 }

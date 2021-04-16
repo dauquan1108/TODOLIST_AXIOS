@@ -1,11 +1,10 @@
 import React, { Component } from "react";
-// import { v4 as uuIdv4 } from "uuid";
 import "./components/HeaDer.css";
 import HeaDer from "./components/HeaDer";
 import ToDoList from "./components/ToDoList";
 import Footer from "./components/Footer";
 import ThemeContext from "./conText/Theme-Context";
-// import Cong from "./tuan6/Cong";
+import * as ConFid from "./utils/Config";
 //----axios----
 import axios from "axios";
 import CallApi from "./utils/CallApi";
@@ -23,19 +22,7 @@ class App extends Component {
   }
 
   componentDidMount() {
-    //c2 lay chuyen
-    // CallApi("get", null).then((response) => {
-    //   this.setState({
-    //     toDoList: response.data,
-    //   });
-    // });
-
-    // c1 lay truc tiep
-    axios({
-      method: "get",
-      url: "https://5c965f64939ad600149a94f9.mockapi.io/ToDoList",
-      data: null,
-    })
+    CallApi("get")
       .then((response) => {
         this.setState({
           toDoList: response.data,
@@ -77,35 +64,17 @@ class App extends Component {
 
   //thêm mới
   addToDo = (value) => {
-    CallApi("post", {
-      title: value,
-      isComplete: false,
-    }).then((response) => {
-      axios({
-        method: "get",
-        url: "https://5c965f64939ad600149a94f9.mockapi.io/ToDoList",
-        data: null,
-      })
-        .then((response) => {
-          this.setState({
-            toDoList: response.data,
-          });
-        })
-        .catch((error) => {
-          console.log(error);
-        });
-    }).catch((error)=>{
-      console.log("Lỗi thêm mới !!!", error);
+    CallApi("post", `${ConFid.API_URL}`, { title: value, isComplete: false })
+      .then((response) => {})
+      .catch((error) => {
+        console.log("Lỗi thêm mới !!!", error);
+        alert("loi sever vui long xoa phan tu moi duoc them !");
+      });
+    const { toDoList } = this.state;
+    toDoList.push({ title: value, isComplete: false });
+    this.setState({
+      toDoList: toDoList,
     });
-
-    // const { toDoList } = this.state;
-    // const Test = [
-    //   { id: uuIdv4(), title: value, isComplete: false },
-    //   ...toDoList,
-    // ];
-    // this.setState({
-    //   toDoList: Test,
-    // });
     //localStorage.setItem("keyToDoList", JSON.stringify(Test));
   };
 
@@ -116,67 +85,69 @@ class App extends Component {
     });
   };
 
-  handleUpdate = (todoItem, textEdit) => {
-    axios({
-      url: `https://5c965f64939ad600149a94f9.mockapi.io/ToDoList/${todoItem.id}`,
-      method: "put",
-      data: {
-        title: textEdit,
-      },
-    }).then((response) => {
-      if (response.status === 200) {
-        const { toDoList } = this.state;
-        toDoList.map(item => {
-          if (item.id === todoItem.id) {
-            item.title = textEdit;
-          }
-        });
-        this.setState({
-          toDoList: toDoList,
-          toDoEditing: {},
-        });
+  handleUpdate = (todoItem, value) => {
+    const id = todoItem.id;
+    CallApi("put", `${ConFid.API_URL}/${id}`, { title: value })
+      .then((response) => {})
+      .catch((error) => {
+        console.log("Lỗi sửa !", error);
+      });
+    const { toDoList } = this.state;
+    toDoList.forEach((item) => {
+      if (item.id === todoItem.id) {
+        item.title = value;
       }
-    }).catch((error)=>{
-      console.log("Lỗi sửa !",error);
     });
-
+    this.setState({
+      toDoList: toDoList,
+      toDoEditing: {},
+    });
     //localStorage.setItem("keyToDoList", JSON.stringify(toDoListView));
   };
 
   // Xóa
   onDeleteItem = (id) => {
-    axios({
-      method: "delete",
-      url: `https://5c965f64939ad600149a94f9.mockapi.io/ToDoList/${id}`,
-      data: null,
-    }).then((response) => {
-      if (response.status === 200) {
-        const { toDoList } = this.state;
-        const deleteItem = toDoList.filter((todo) => todo.id !== id);
-        this.setState({
-          toDoList: deleteItem,
-        });
-      }
-    }).catch((error)=>{
-      console.log("Xóa thất bại !", error);
+    CallApi("delete", `${ConFid.API_URL}/${id}`)
+      .then((response) => {
+        if (response.status === 200) {
+        }
+      })
+      .catch((error) => {
+        console.log("Xóa thất bại !", error);
+      });
+    const { toDoList } = this.state;
+    const deleteItem = toDoList.filter((todo) => todo.id !== id);
+    this.setState({
+      toDoList: deleteItem,
     });
-
     //localStorage.setItem("keyToDoList", JSON.stringify(todoListDeleted));
-
     this.myHeader.current.cleanValue();
   };
 
   // gạch chân item
   onClickCheckBox = (id) => {
     const { toDoList } = this.state;
-    let copyTodoList = [...toDoList];
-    // so sanh id ban dau voi id duoc truyen tu thang con gui toi neu 2 id bang nhau thi moi thuc hien khoi lenhj
-    copyTodoList.map((todo) => {
+    toDoList.map((todo) => {
       if (todo.id === id) {
-        todo.isComplete = !todo.isComplete;
+        if (todo.isComplete === false) {
+          CallApi("put", `${ConFid.API_URL}/${todo.id}`, { isComplete: true })
+            .then((response) => {})
+            .catch((error) => {
+              console.log("Xóa thất bại !", error);
+            });
+          todo.isComplete = !todo.isComplete;
+          this.setState({ toDoList });
+        } else if (todo.isComplete === true) {
+          CallApi("put", `${ConFid.API_URL}/${todo.id}`, { isComplete: false })
+            .then((response) => {})
+            .catch((error) => {
+              console.log("Xóa thất bại !", error);
+            });
+          todo.isComplete = !todo.isComplete;
+          this.setState({ toDoList });
+        }
       }
     });
-    this.setState({ toDoList: copyTodoList });
   };
 
   // check all
@@ -192,49 +163,65 @@ class App extends Component {
   completedAll = () => {
     const { toDoList } = this.state;
     toDoList.map((item) => {
+      const id = item.id;
       if (item.isComplete === false) {
-        axios({
-          url: `https://5c965f64939ad600149a94f9.mockapi.io/ToDoList/${item.id}`,
-          method: "put",
-          data: {
-            isComplete: true,
-          },
-        }).then((response) => {
-          if (response.status === 200) {
-            item.isComplete = true;
+        const axios = require("axios").default;
+        const updatedPost = {
+          id: { id },
+          isComplete: true,
+        };
+        const sendPutRequest = async () => {
+          try {
+            const resp = await axios.put(
+              `${ConFid.API_URL}/${id}`,
+              updatedPost
+            );
+            console.log(resp.data);
+          } catch (err) {
+            console.error(err);
           }
-          this.setState({
-            toDoList,
-          });
-        }).catch((error)=>{
-          console.log("Lỗi check All !", error);
+        };
+        item.isComplete = true;
+        this.setState({
+          toDoList,
         });
+
+        sendPutRequest();
       }
     });
+
+    document.cookie = "username= completedAll";
   };
 
   removeCompletedAll = () => {
     const { toDoList } = this.state;
     toDoList.map((item) => {
+      const id = item.id;
       if (item.isComplete === true) {
-        axios({
-          url: `https://5c965f64939ad600149a94f9.mockapi.io/ToDoList/${item.id}`,
-          method: "put",
-          data: {
-            isComplete: false,
-          },
-        }).then((response) => {
-          if (response.status === 200) {
-            item.isComplete = false;
+        const axios = require("axios").default;
+        const updatedPost = {
+          id: { id },
+          isComplete: false,
+        };
+        const sendPutRequest = async () => {
+          try {
+            const resp = await axios.put(
+              `${ConFid.API_URL}/${id}`,
+              updatedPost
+            );
+            console.log(resp.data);
+          } catch (err) {
+            console.error(err);
           }
+          item.isComplete = false;
           this.setState({
             toDoList,
           });
-        }).catch((error)=>{
-          console.log("Lỗi check all !", error);
-        });
+        };
+        sendPutRequest();
       }
     });
+    document.cookie = "username= removeCompletedAll";
   };
 
   updateStatusShow = (statusShow) => {
@@ -250,22 +237,16 @@ class App extends Component {
   };
 
   removeAllToDoListCompleted = () => {
-    debugger;
     const { toDoList } = this.state;
-    toDoList.map((item) => {
+    toDoList.forEach((item) => {
       if (item.isComplete === true) {
-        axios({
-          method: "delete",
-          url: `https://5c965f64939ad600149a94f9.mockapi.io/ToDoList/${item.id}`,
-          data: null,
-        }).then((response) => {
-          if (response.status === 200) {
-            this.setState({
-              toDoList: toDoList.filter((num) => !num.isComplete),
-            });
-          }
-        }).catch((error)=>{
-          console.log("Lỗi RemoveAll !", error);
+        CallApi("delete", `${ConFid.API_URL}/${item.id}`)
+          .then((response) => {})
+          .catch((error) => {
+            console.log("Lỗi RemoveAll !", error);
+          });
+        this.setState({
+          toDoList: toDoList.filter((num) => !num.isComplete),
         });
       }
     });
