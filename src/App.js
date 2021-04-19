@@ -6,7 +6,7 @@ import Footer from "./components/Footer";
 import ThemeContext from "./conText/Theme-Context";
 import * as ConFid from "./utils/Config";
 //----axios----
-import axios from "axios";
+// import axios from "axios";
 import CallApi from "./utils/CallApi";
 
 class App extends Component {

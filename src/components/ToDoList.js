@@ -1,19 +1,26 @@
 import React, { Component } from "react";
 import Item from "./Item";
 import "./HeaDer.css";
-// import Button from "./Button";
+//----
+import { connect } from "react-redux";
+import { TODO_LIST_VIEW_ALL } from "../actions/index";
+import CallApi from "../utils/CallApi";
 
 class ToDoList extends Component {
+  componentDidMount() {
+    CallApi("get")
+      .then((response) => {
+        this.props.TodoListALL(response.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }
   render() {
-    const {
-      toDoListView,
-      onClickCheckBox,
-      onDeleteItem,
-      onClickPen,
-    } = this.props;
+    const { toDoList, onClickCheckBox, onDeleteItem, onClickPen } = this.props;
     return (
       <div className="ContentToDoList">
-        {toDoListView.map((item) => {
+        {toDoList.map((item) => {
           return (
             <Item
               key={item.id}
@@ -24,10 +31,23 @@ class ToDoList extends Component {
             />
           );
         })}
-        {/* <Button /> */}
       </div>
     );
   }
 }
 
-export default ToDoList;
+const mapStateToProps = (state) => {
+  return {
+    toDoList: state.toDoList,
+  };
+};
+
+const mapDispatchToProps = (dispatch, props) => {
+  return {
+    TodoListALL: (toDoList) => {
+      dispatch(TODO_LIST_VIEW_ALL(toDoList));
+    },
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(ToDoList);

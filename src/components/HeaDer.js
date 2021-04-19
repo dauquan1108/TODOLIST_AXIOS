@@ -1,6 +1,9 @@
 import React, { Component } from "react";
 import "./HeaDer.css";
 import checkAll from "./images/checkAll.svg";
+//----
+import { connect } from "react-redux";
+import { ADD_TODO_LIST_ALL } from "../actions/index";
 class HeaDer extends Component {
   constructor(props) {
     super(props);
@@ -33,7 +36,8 @@ class HeaDer extends Component {
     if (toDoEditing && Object.keys(toDoEditing).length !== 0) {
       handleUpdate(toDoEditing, this.input.current.value);
     } else if (this.input.current.value.trim()) {
-      addToDo(this.input.current.value);
+      let value = this.input.current.value;
+      addToDo(value);
     }
     this.cleanValue();
     event.preventDefault();
@@ -77,5 +81,15 @@ class HeaDer extends Component {
     );
   }
 }
+const mapStateToProps = (state) => {
+  return {};
+};
+const mapDispatchToProps = (dispatch, props) => {
+  return {
+    TodoListALL: (item) => {
+      dispatch(ADD_TODO_LIST_ALL(item));
+    },
+  };
+};
 
-export default HeaDer;
+export default connect(mapStateToProps, mapDispatchToProps)(HeaDer);

@@ -5,14 +5,22 @@ import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
 import ThemeProvider from "./conText/Theme-Provider";
+//---
+import { createStore } from "redux";
+import { Provider } from "react-redux";
+import appReducers from "./reducers/index";
 
-
+const store = createStore(
+  appReducers,
+  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+);
 ReactDOM.render(
-    <ThemeProvider>
+  <ThemeProvider>
+    <Provider store={store}>
       <App />
-    </ThemeProvider>
-,
-document.getElementsByTagName("BODY")[0]
+    </Provider>
+  </ThemeProvider>,
+  document.getElementsByTagName("BODY")[0]
 );
 
 reportWebVitals();

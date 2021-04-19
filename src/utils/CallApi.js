@@ -1,5 +1,4 @@
 import axios from "axios";
-// import * as Config from "./Config";
 
 export default function CallApi(
   method = "get",
