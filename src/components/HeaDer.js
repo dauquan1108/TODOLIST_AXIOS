@@ -4,6 +4,8 @@ import checkAll from "./images/checkAll.svg";
 //----
 import { connect } from "react-redux";
 import { ADD_TODO_LIST_ALL } from "../actions/index";
+import CallApi from "../utils/CallApi";
+import * as ConFid from "../utils/Config";
 class HeaDer extends Component {
   constructor(props) {
     super(props);
@@ -37,7 +39,22 @@ class HeaDer extends Component {
       handleUpdate(toDoEditing, this.input.current.value);
     } else if (this.input.current.value.trim()) {
       let value = this.input.current.value;
-      addToDo(value);
+
+      this.props.TodoListALL( value,
+        CallApi("post", `${ConFid.API_URL}`, {
+          title: value,
+          isComplete: false,
+        })
+          .then((response) => {
+            if(response.status === 200){
+
+            }
+          })
+          .catch((error) => {
+            console.log("Lỗi thêm mới !!!", error);
+            alert("loi sever vui long xoa phan tu moi duoc them !");
+          })
+      );
     }
     this.cleanValue();
     event.preventDefault();

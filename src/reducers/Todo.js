@@ -8,6 +8,12 @@ const Todo = (state = ToDoList, action) => {
       state = action.toDoList;
       return [...state];
     case types.ADD_TODO_LIST:
+      const { ToDoList } = this.state;
+      ToDoList.push({ title: action.item, isComplete: false });
+      this.setState({
+        ToDoList,
+      });
+      // console.log(action.item);
       return [...state];
     default:
       return [...state];
