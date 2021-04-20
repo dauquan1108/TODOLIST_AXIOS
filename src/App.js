@@ -63,20 +63,20 @@ class App extends Component {
   }
 
   //thêm mới
-  addToDo = (value) => {
-    CallApi("post", `${ConFid.API_URL}`, { title: value, isComplete: false })
-      .then((response) => {})
-      .catch((error) => {
-        console.log("Lỗi thêm mới !!!", error);
-        alert("loi sever vui long xoa phan tu moi duoc them !");
-      });
-    const { toDoList } = this.state;
-    toDoList.push({ title: value, isComplete: false });
-    this.setState({
-      toDoList: toDoList,
-    });
-    //localStorage.setItem("keyToDoList", JSON.stringify(Test));
-  };
+  // addToDo = (value) => {
+  //   CallApi("post", `${ConFid.API_URL}`, { title: value, isComplete: false })
+  //     .then((response) => {})
+  //     .catch((error) => {
+  //       console.log("Lỗi thêm mới !!!", error);
+  //       alert("loi sever vui long xoa phan tu moi duoc them !");
+  //     });
+  //   const { toDoList } = this.state;
+  //   toDoList.push({ title: value, isComplete: false });
+  //   this.setState({
+  //     toDoList: toDoList,
+  //   });
+  //   //localStorage.setItem("keyToDoList", JSON.stringify(Test));
+  // };
 
   // click vào sửa
   onClickPen = (toDoEditing) => {
@@ -106,23 +106,23 @@ class App extends Component {
   };
 
   // Xóa
-  onDeleteItem = (id) => {
-    CallApi("delete", `${ConFid.API_URL}/${id}`)
-      .then((response) => {
-        if (response.status === 200) {
-        }
-      })
-      .catch((error) => {
-        console.log("Xóa thất bại !", error);
-      });
-    const { toDoList } = this.state;
-    const deleteItem = toDoList.filter((todo) => todo.id !== id);
-    this.setState({
-      toDoList: deleteItem,
-    });
-    //localStorage.setItem("keyToDoList", JSON.stringify(todoListDeleted));
-    this.myHeader.current.cleanValue();
-  };
+  // onDeleteItem = (id) => {
+  //   CallApi("delete", `${ConFid.API_URL}/${id}`)
+  //     .then((response) => {
+  //       if (response.status === 200) {
+  //       }
+  //     })
+  //     .catch((error) => {
+  //       console.log("Xóa thất bại !", error);
+  //     });
+  //   const { toDoList } = this.state;
+  //   const deleteItem = toDoList.filter((todo) => todo.id !== id);
+  //   this.setState({
+  //     toDoList: deleteItem,
+  //   });
+  //   //localStorage.setItem("keyToDoList", JSON.stringify(todoListDeleted));
+  //   //this.myHeader.current.cleanValue();
+  // };
 
   // gạch chân item
   onClickCheckBox = (id) => {

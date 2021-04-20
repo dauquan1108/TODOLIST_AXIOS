@@ -13,3 +13,24 @@ export const ADD_TODO_LIST_ALL = (item) => {
     item,
   };
 };
+
+export const EDIT_TODO_LIST_ALL = (id) => {
+  return {
+    type: types.EDIT_ITEM_TODO_LIST,
+    id,
+  };
+};
+
+export const ON_DELETE_TODO_LIST = (id) => {
+  return {
+    type: types.DELETE_TODO_LIST,
+    id,
+  };
+};
+
+export const ON_ITEM_CHECKBOX = (id) => {
+  return {
+    type: types.ITEM_CHECKBOX,
+    id,
+  };
+};

@@ -8,13 +8,25 @@ const Todo = (state = ToDoList, action) => {
       state = action.toDoList;
       return [...state];
     case types.ADD_TODO_LIST:
-      const { ToDoList } = this.state;
-      ToDoList.push({ title: action.item, isComplete: false });
-      this.setState({
-        ToDoList,
+      const addTodoList = [...state];
+      addTodoList.push({
+        title: action.item,
+        isComplete: false,
       });
-      // console.log(action.item);
-      return [...state];
+      return [...addTodoList];
+    case types.DELETE_TODO_LIST:
+      const ToDoList = [...state];
+      const todoListNew = ToDoList.filter((todo) => todo.id !== action.id);
+      return todoListNew;
+    case types.ITEM_CHECKBOX:
+      const id = action.id;
+      const todoListCheckBox = [...state];
+      todoListCheckBox.forEach((todo) => {
+        if (todo.id === id) {
+          todo.isComplete = !todo.isComplete;
+        }
+      });
+      return [...todoListCheckBox];
     default:
       return [...state];
   }
