@@ -1,7 +1,14 @@
 import React, { Component } from "react";
 import "./HeaDer.css";
 import "./index.css";
+//-----
+import { connect } from "react-redux";
+import { ON_DELETE_TODO_LIST, ON_DELETE_TODO_LIST_ALL } from "../actions/index";
+
 class Footer extends Component {
+  removeAllTodoList = () => {
+    const { onDeleteAllTodoList } = this.props;
+  };
   render() {
     const {
       toDoList,
@@ -56,9 +63,7 @@ class Footer extends Component {
             <a
               href="#ClearCompleted"
               className="clear-completed"
-              onClick={() => {
-                removeAllToDoListCompleted();
-              }}
+              onClick={this.removeAllTodoList}
             >
               Clear completed
             </a>
@@ -68,5 +73,14 @@ class Footer extends Component {
     );
   }
 }
-
-export default Footer;
+const mapStateToProps = (state) => {
+  return {};
+};
+const mapDispatchToProps = (dispatch, props) => {
+  return {
+    onDeleteAllTodoList: () => {
+      dispatch(ON_DELETE_TODO_LIST_ALL());
+    },
+  };
+};
+export default connect(mapStateToProps, mapDispatchToProps)(Footer);

@@ -14,6 +14,16 @@ const Todo = (state = ToDoList, action) => {
         isComplete: false,
       });
       return [...addTodoList];
+    case types.EDIT_ITEM_TODO_LIST:
+      const idEdit = action.id;
+      const value = action.value;
+      const editTodoList = [...state];
+      editTodoList.forEach((todo) => {
+        if (todo.id === idEdit) {
+          todo.title = value;
+        }
+      });
+      return [...editTodoList];
     case types.DELETE_TODO_LIST:
       const ToDoList = [...state];
       const todoListNew = ToDoList.filter((todo) => todo.id !== action.id);

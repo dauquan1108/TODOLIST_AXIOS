@@ -62,22 +62,6 @@ class App extends Component {
     };
   }
 
-  //thêm mới
-  // addToDo = (value) => {
-  //   CallApi("post", `${ConFid.API_URL}`, { title: value, isComplete: false })
-  //     .then((response) => {})
-  //     .catch((error) => {
-  //       console.log("Lỗi thêm mới !!!", error);
-  //       alert("loi sever vui long xoa phan tu moi duoc them !");
-  //     });
-  //   const { toDoList } = this.state;
-  //   toDoList.push({ title: value, isComplete: false });
-  //   this.setState({
-  //     toDoList: toDoList,
-  //   });
-  //   //localStorage.setItem("keyToDoList", JSON.stringify(Test));
-  // };
-
   // click vào sửa
   onClickPen = (toDoEditing) => {
     this.setState({
@@ -85,70 +69,6 @@ class App extends Component {
     });
   };
 
-  handleUpdate = (todoItem, value) => {
-    const id = todoItem.id;
-    CallApi("put", `${ConFid.API_URL}/${id}`, { title: value })
-      .then((response) => {})
-      .catch((error) => {
-        console.log("Lỗi sửa !", error);
-      });
-    const { toDoList } = this.state;
-    toDoList.forEach((item) => {
-      if (item.id === todoItem.id) {
-        item.title = value;
-      }
-    });
-    this.setState({
-      toDoList: toDoList,
-      toDoEditing: {},
-    });
-    //localStorage.setItem("keyToDoList", JSON.stringify(toDoListView));
-  };
-
-  // Xóa
-  // onDeleteItem = (id) => {
-  //   CallApi("delete", `${ConFid.API_URL}/${id}`)
-  //     .then((response) => {
-  //       if (response.status === 200) {
-  //       }
-  //     })
-  //     .catch((error) => {
-  //       console.log("Xóa thất bại !", error);
-  //     });
-  //   const { toDoList } = this.state;
-  //   const deleteItem = toDoList.filter((todo) => todo.id !== id);
-  //   this.setState({
-  //     toDoList: deleteItem,
-  //   });
-  //   //localStorage.setItem("keyToDoList", JSON.stringify(todoListDeleted));
-  //   //this.myHeader.current.cleanValue();
-  // };
-
-  // gạch chân item
-  onClickCheckBox = (id) => {
-    const { toDoList } = this.state;
-    toDoList.map((todo) => {
-      if (todo.id === id) {
-        if (todo.isComplete === false) {
-          CallApi("put", `${ConFid.API_URL}/${todo.id}`, { isComplete: true })
-            .then((response) => {})
-            .catch((error) => {
-              console.log("Xóa thất bại !", error);
-            });
-          todo.isComplete = !todo.isComplete;
-          this.setState({ toDoList });
-        } else if (todo.isComplete === true) {
-          CallApi("put", `${ConFid.API_URL}/${todo.id}`, { isComplete: false })
-            .then((response) => {})
-            .catch((error) => {
-              console.log("Xóa thất bại !", error);
-            });
-          todo.isComplete = !todo.isComplete;
-          this.setState({ toDoList });
-        }
-      }
-    });
-  };
 
   // check all
   onClickCheckAllItem = () => {

@@ -14,10 +14,11 @@ export const ADD_TODO_LIST_ALL = (item) => {
   };
 };
 
-export const EDIT_TODO_LIST_ALL = (id) => {
+export const EDIT_TODO_LIST_ALL = (id, value) => {
   return {
     type: types.EDIT_ITEM_TODO_LIST,
     id,
+    value
   };
 };
 
@@ -34,3 +35,10 @@ export const ON_ITEM_CHECKBOX = (id) => {
     id,
   };
 };
+
+export const ON_DELETE_TODO_LIST_ALL = (id)=>{
+  return{
+    type: types.DELETE_TODO_LIST_ALL,
+    id
+  }
+}

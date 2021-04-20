@@ -3,7 +3,7 @@ import "./HeaDer.css";
 import checkAll from "./images/checkAll.svg";
 //----
 import { connect } from "react-redux";
-import { ADD_TODO_LIST_ALL } from "../actions/index";
+import { ADD_TODO_LIST_ALL, EDIT_TODO_LIST_ALL } from "../actions/index";
 import CallApi from "../utils/CallApi";
 import * as ConFid from "../utils/Config";
 class HeaDer extends Component {
@@ -34,20 +34,31 @@ class HeaDer extends Component {
   };
 
   handleSubmit = (event) => {
-    const { addToDo, handleUpdate, toDoEditing } = this.props;
+    const { toDoEditing, editTodoList } = this.props;
     if (toDoEditing && Object.keys(toDoEditing).length !== 0) {
-      handleUpdate(toDoEditing, this.input.current.value);
+      const value = this.input.current.value;
+      const id = toDoEditing.id;
+      editTodoList(
+        id,
+        value,
+        CallApi("put", `${ConFid.API_URL}/${id}`, { title: value })
+          .then((response) => {
+            console.log("ok", response);
+          })
+          .catch((error) => {
+            console.log("Lỗi Sửa !", error);
+          })
+      );
     } else if (this.input.current.value.trim()) {
       let value = this.input.current.value;
-
-      this.props.TodoListALL( value,
+      this.props.TodoListALL(
+        value,
         CallApi("post", `${ConFid.API_URL}`, {
           title: value,
           isComplete: false,
         })
           .then((response) => {
-            if(response.status === 200){
-
+            if (response.status === 200) {
             }
           })
           .catch((error) => {
@@ -105,6 +116,9 @@ const mapDispatchToProps = (dispatch, props) => {
   return {
     TodoListALL: (item) => {
       dispatch(ADD_TODO_LIST_ALL(item));
+    },
+    editTodoList: (id, value) => {
+      dispatch(EDIT_TODO_LIST_ALL(id, value));
     },
   };
 };
