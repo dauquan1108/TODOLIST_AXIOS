@@ -3,11 +3,24 @@ import "./HeaDer.css";
 import "./index.css";
 //-----
 import { connect } from "react-redux";
-import { ON_DELETE_TODO_LIST, ON_DELETE_TODO_LIST_ALL } from "../actions/index";
+import { ON_DELETE_TODO_LIST_ALL } from "../actions/index";
+import CallApi from "../utils/CallApi";
+import * as ConFig from "../utils/Config";
 
 class Footer extends Component {
   removeAllTodoList = () => {
-    const { onDeleteAllTodoList } = this.props;
+    const { onDeleteAllTodoList, toDoList } = this.props;
+    onDeleteAllTodoList(toDoList.forEach((todo) => {
+      if(todo.isComplete === true){
+        CallApi("delete", `${ConFig.API_URL}/${todo.id}`)
+        .then((response)=>{
+          console.log("ok",response);
+        })
+        .catch((error)=>{
+          console.log("Loi !", error);
+        })
+      }
+    }));
   };
   render() {
     const {
@@ -74,7 +87,9 @@ class Footer extends Component {
   }
 }
 const mapStateToProps = (state) => {
-  return {};
+  return {
+    toDoList: state.toDoList,
+  };
 };
 const mapDispatchToProps = (dispatch, props) => {
   return {

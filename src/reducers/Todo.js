@@ -5,6 +5,7 @@ let ToDoList = [];
 const Todo = (state = ToDoList, action) => {
   switch (action.type) {
     case types.TODO_LIST_VIEW:
+      //toDoList => lay o file trong file Todo.js 
       state = action.toDoList;
       return [...state];
     case types.ADD_TODO_LIST:
@@ -37,6 +38,21 @@ const Todo = (state = ToDoList, action) => {
         }
       });
       return [...todoListCheckBox];
+
+    case types.DELETE_TODO_LIST_ALL:
+      //debugger;
+      const deleteTodoListAll = [...state];
+      deleteTodoListAll.map((todo) => {
+        if (todo.isComplete === true) {
+          const id = todo.id;
+          console.log("----id----", id);
+          const clearItem = deleteTodoListAll.filter((num) => !num.isComplete);
+          console.log([...clearItem]);
+        }
+      });
+      //debugger;
+      return [...deleteTodoListAll];
+
     default:
       return [...state];
   }

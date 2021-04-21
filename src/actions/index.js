@@ -36,9 +36,9 @@ export const ON_ITEM_CHECKBOX = (id) => {
   };
 };
 
-export const ON_DELETE_TODO_LIST_ALL = (id)=>{
+export const ON_DELETE_TODO_LIST_ALL = ()=>{
   return{
     type: types.DELETE_TODO_LIST_ALL,
-    id
+    
   }
 }
