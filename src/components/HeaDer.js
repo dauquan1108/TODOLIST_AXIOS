@@ -3,14 +3,20 @@ import "./HeaDer.css";
 import checkAll from "./images/checkAll.svg";
 //----
 import { connect } from "react-redux";
-import { ADD_TODO_LIST_ALL, EDIT_TODO_LIST_ALL } from "../actions/index";
+import {
+  ADD_TODO_LIST_ALL,
+  EDIT_TODO_LIST_ALL,
+  ON_CHECK_ALL_TODO_LIST,
+} from "../actions/index";
 import CallApi from "../utils/CallApi";
 import * as ConFid from "../utils/Config";
+
 class HeaDer extends Component {
   constructor(props) {
     super(props);
     this.state = {
       value: "",
+      toDoEditingView: {},
     };
     this.input = React.createRef();
   }
@@ -29,27 +35,70 @@ class HeaDer extends Component {
   };
 
   onClickCheckAllItem = () => {
-    const { onClickCheckAllItem } = this.props;
-    onClickCheckAllItem();
+    const { onCheckAllTodoList, isCompletedAll } = this.props;
+    console.log("xxxxxx", isCompletedAll);
+    if (isCompletedAll) {
+      onCheckAllTodoList(isCompletedAll, this.onCheckAllTodoList_True());
+    } else {
+      onCheckAllTodoList(isCompletedAll, this.onCheckAllTodoList_false());
+    }
+  };
+
+  onCheckAllTodoList_True = () => {
+    const { toDoList } = this.props;
+    toDoList.forEach((todo) => {
+      const id = todo.id;
+      if (todo.isComplete) {
+        CallApi("put", `${ConFid.API_URL}/${id}`, {
+          id: { id },
+          isComplete: false,
+        })
+          .then((response) => {})
+          .catch((error) => {
+            console.log("Lỗi", error);
+          });
+      }
+    });
+  };
+
+  onCheckAllTodoList_false = () => {
+    const { toDoList } = this.props;
+    toDoList.forEach((todo) => {
+      const id = todo.id;
+      if (!todo.isComplete) {
+        CallApi("put", `${ConFid.API_URL}/${id}`, {
+          id: { id },
+          isComplete: true,
+        })
+          .then((response) => {})
+          .catch((error) => {
+            console.log("Lỗi", error);
+          });
+      }
+    });
   };
 
   handleSubmit = (event) => {
+    //debugger;
     const { toDoEditing, editTodoList } = this.props;
+    const { toDoEditingView } = this.state;
+    const value = this.input.current.value;
+    const id = toDoEditing.id;
     if (toDoEditing && Object.keys(toDoEditing).length !== 0) {
-      const value = this.input.current.value;
-      const id = toDoEditing.id;
       editTodoList(
         id,
         value,
         CallApi("put", `${ConFid.API_URL}/${id}`, { title: value })
-          .then((response) => {
-            console.log("ok", response);
-          })
+          .then((response) => {})
           .catch((error) => {
             console.log("Lỗi Sửa !", error);
           })
       );
-    } else if (this.input.current.value.trim()) {
+
+      //toDoEditing = "";
+      // clear toDoEditTing
+    } else if (value.trim()) {
+      //debugger;
       let value = this.input.current.value;
       this.props.TodoListALL(
         value,
@@ -63,7 +112,6 @@ class HeaDer extends Component {
           })
           .catch((error) => {
             console.log("Lỗi thêm mới !!!", error);
-            alert("loi sever vui long xoa phan tu moi duoc them !");
           })
       );
     }
@@ -78,13 +126,14 @@ class HeaDer extends Component {
   };
 
   render() {
-    let check;
     const { isCompletedAll } = this.props;
-    if (isCompletedAll === false) {
-      check += " image";
-    } else {
-      check += " image_";
-    }
+    // let check;
+    // if (!isCompletedAll) {
+    //   check += " image";
+    // } else {
+    //   check += " image_";
+    // }
+    const check = isCompletedAll ? " image_" : " image";
 
     return (
       <div className="Header">
@@ -110,7 +159,9 @@ class HeaDer extends Component {
   }
 }
 const mapStateToProps = (state) => {
-  return {};
+  return {
+    toDoList: state.toDoList,
+  };
 };
 const mapDispatchToProps = (dispatch, props) => {
   return {
@@ -119,6 +170,9 @@ const mapDispatchToProps = (dispatch, props) => {
     },
     editTodoList: (id, value) => {
       dispatch(EDIT_TODO_LIST_ALL(id, value));
+    },
+    onCheckAllTodoList: () => {
+      dispatch(ON_CHECK_ALL_TODO_LIST());
     },
   };
 };

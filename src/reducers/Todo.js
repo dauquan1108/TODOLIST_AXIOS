@@ -1,57 +1,50 @@
 import * as types from "../constants/ActionTypes";
 
 let ToDoList = [];
+// let  toDoEditing = {},
 
 const Todo = (state = ToDoList, action) => {
+  const toDoListView = [...state];
   switch (action.type) {
     case types.TODO_LIST_VIEW:
-      //toDoList => lay o file trong file Todo.js 
+      //toDoList => lay o file trong file Todo.js
       state = action.toDoList;
       return [...state];
     case types.ADD_TODO_LIST:
-      const addTodoList = [...state];
-      addTodoList.push({
+      toDoListView.push({
         title: action.item,
         isComplete: false,
       });
-      return [...addTodoList];
+      return [...toDoListView];
     case types.EDIT_ITEM_TODO_LIST:
       const idEdit = action.id;
       const value = action.value;
-      const editTodoList = [...state];
-      editTodoList.forEach((todo) => {
+      toDoListView.forEach((todo) => {
         if (todo.id === idEdit) {
           todo.title = value;
         }
       });
-      return [...editTodoList];
+      // toDoEditing ={}
+
+      return [...toDoListView];
     case types.DELETE_TODO_LIST:
-      const ToDoList = [...state];
-      const todoListNew = ToDoList.filter((todo) => todo.id !== action.id);
+      const todoListNew = toDoListView.filter((todo) => todo.id !== action.id);
       return todoListNew;
     case types.ITEM_CHECKBOX:
       const id = action.id;
-      const todoListCheckBox = [...state];
-      todoListCheckBox.forEach((todo) => {
+      toDoListView.forEach((todo) => {
         if (todo.id === id) {
           todo.isComplete = !todo.isComplete;
         }
       });
-      return [...todoListCheckBox];
-
+      return [...toDoListView];
     case types.DELETE_TODO_LIST_ALL:
-      //debugger;
-      const deleteTodoListAll = [...state];
-      deleteTodoListAll.map((todo) => {
-        if (todo.isComplete === true) {
-          const id = todo.id;
-          console.log("----id----", id);
-          const clearItem = deleteTodoListAll.filter((num) => !num.isComplete);
-          console.log([...clearItem]);
-        }
-      });
-      //debugger;
-      return [...deleteTodoListAll];
+      return [...state.filter((item) => !item.isComplete)];
+
+    case types.CHECK_ALL_TODO_LIST:
+      console.log("------", action.isCompletedAll);
+      // toDoListView
+      return [...toDoListView];
 
     default:
       return [...state];

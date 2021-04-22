@@ -6,8 +6,8 @@ import Footer from "./components/Footer";
 import ThemeContext from "./conText/Theme-Context";
 import * as ConFid from "./utils/Config";
 //----axios----
-// import axios from "axios";
 import CallApi from "./utils/CallApi";
+import { connect } from "react-redux";
 
 class App extends Component {
   constructor(props) {
@@ -31,15 +31,14 @@ class App extends Component {
       .catch((error) => {
         console.log(error);
       });
-    // luu tru tren localstorage
-    // let toDoList = JSON.parse(localStorage.getItem("keyToDoList")) || [];
-    // this.setState({
-    //   toDoList: toDoList,
-    // });
+    // const { todoListNew } = this.props;
+    // const todo = [...todoListNew];
+    // console.log("-----", todo);
   }
 
   static getDerivedStateFromProps(props, state) {
     // TODO: Tính toán lại thằng toDoListView dựa trên thằng toDoList, statusShow
+
     const { toDoList, statusShow } = state;
     let toDoListView = toDoList;
     let toDoListCompleted = toDoList.filter((num) => num.isComplete);
@@ -68,7 +67,6 @@ class App extends Component {
       toDoEditing,
     });
   };
-
 
   // check all
   onClickCheckAllItem = () => {
@@ -181,6 +179,8 @@ class App extends Component {
       isCompletedAll,
     } = this.state;
     let { theme, toggleTheme } = this.context;
+    const { todoListNew } = this.props;
+    //console.log(todoListNew);
     const numberToDoActive = this.getNumberToDoActive();
     return (
       <div
@@ -201,17 +201,9 @@ class App extends Component {
             <HeaDer
               isCompletedAll={isCompletedAll}
               toDoEditing={toDoEditing}
-              addToDo={this.addToDo}
               onClickCheckAllItem={this.onClickCheckAllItem}
-              handleUpdate={this.handleUpdate}
-              ref={this.myHeader}
             />
-            <ToDoList
-              toDoListView={toDoListView}
-              onClickCheckBox={this.onClickCheckBox}
-              onClickPen={this.onClickPen}
-              onDeleteItem={this.onDeleteItem}
-            />
+            <ToDoList onClickPen={this.onClickPen} />
             {toDoList.length > 0 && (
               <Footer
                 toDoList={toDoList}
@@ -228,4 +220,12 @@ class App extends Component {
   }
 }
 App.contextType = ThemeContext;
-export default App;
+const mapStateToProps = (state) => {
+  return {
+    todoListNew: state.toDoList,
+  };
+};
+// const mapDispatchToProps = (dispatch, props) => {
+//   return {};
+// };
+export default connect(mapStateToProps, null)(App);
