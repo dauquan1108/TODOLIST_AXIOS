@@ -6,7 +6,8 @@ import { connect } from "react-redux";
 import {
   ADD_TODO_LIST_ALL,
   EDIT_TODO_LIST_ALL,
-  ON_CHECK_ALL_TODO_LIST,
+  ON_CHECK_ALL_TODO_LIST_TRUE,
+  ON_CHECK_ALL_TODO_LIST_FALSE,
 } from "../actions/index";
 import CallApi from "../utils/CallApi";
 import * as ConFid from "../utils/Config";
@@ -35,12 +36,17 @@ class HeaDer extends Component {
   };
 
   onClickCheckAllItem = () => {
-    const { onCheckAllTodoList, isCompletedAll } = this.props;
+    const {
+      onCheckAllTodoListTrue,
+      onCheckAllTodoListFalse,
+      isCompletedAll,
+    } = this.props;
     console.log("xxxxxx", isCompletedAll);
-    if (isCompletedAll) {
-      onCheckAllTodoList(isCompletedAll, this.onCheckAllTodoList_True());
-    } else {
-      onCheckAllTodoList(isCompletedAll, this.onCheckAllTodoList_false());
+    //debugger;
+    if (isCompletedAll === true) {
+      onCheckAllTodoListTrue(isCompletedAll, this.onCheckAllTodoList_True());
+    } else if (isCompletedAll === false) {
+      onCheckAllTodoListFalse(isCompletedAll, this.onCheckAllTodoList_false());
     }
   };
 
@@ -171,8 +177,11 @@ const mapDispatchToProps = (dispatch, props) => {
     editTodoList: (id, value) => {
       dispatch(EDIT_TODO_LIST_ALL(id, value));
     },
-    onCheckAllTodoList: () => {
-      dispatch(ON_CHECK_ALL_TODO_LIST());
+    onCheckAllTodoListTrue: (isCompletedAll) => {
+      dispatch(ON_CHECK_ALL_TODO_LIST_TRUE(isCompletedAll));
+    },
+    onCheckAllTodoListFalse: (isCompletedAll) => {
+      dispatch(ON_CHECK_ALL_TODO_LIST_FALSE(isCompletedAll));
     },
   };
 };

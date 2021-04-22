@@ -1,7 +1,6 @@
 import * as types from "../constants/ActionTypes";
 
 let ToDoList = [];
-// let  toDoEditing = {},
 
 const Todo = (state = ToDoList, action) => {
   const toDoListView = [...state];
@@ -41,14 +40,45 @@ const Todo = (state = ToDoList, action) => {
     case types.DELETE_TODO_LIST_ALL:
       return [...state.filter((item) => !item.isComplete)];
 
-    case types.CHECK_ALL_TODO_LIST:
-      console.log("------", action.isCompletedAll);
-      // toDoListView
+    case types.CHECK_ALL_TODO_LIST_TRUE:
+      debugger;
+      toDoListView.forEach((todo) => {
+        if (todo.isComplete === true) {
+          todo.isComplete = false;
+        }
+        // else if (todo.isComplete === false) {
+        //   todo.isComplete = true;
+        // }
+      });
+      // toDoListView.filter((item) => !item.isComplete);
       return [...toDoListView];
 
+    case types.CHECK_ALL_TODO_LIST_FALSE:
+      debugger;
+      toDoListView.forEach((todo) => {
+        if (todo.isComplete === false) {
+          todo.isComplete = true;
+        }
+        // else if (todo.isComplete === true) {
+        //   todo.isComplete = false;
+        // }
+      });
+      // toDoListView.filter((item) => item.isComplete)
+
+      return [...toDoListView];
     default:
       return [...state];
   }
+
+
 };
+// isCompleteTrue = () => {
+//   toDoListView.forEach((todo) => {
+//     if (todo.isComplete === false) {
+//       todo.isComplete = true;
+//     }
+//   });
+  
+// };
 
 export default Todo;

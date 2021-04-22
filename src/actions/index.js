@@ -42,8 +42,16 @@ export const ON_DELETE_TODO_LIST_ALL = () => {
   };
 };
 
-export const ON_CHECK_ALL_TODO_LIST = () => {
+export const ON_CHECK_ALL_TODO_LIST_TRUE = (isCompletedAll) => {
   return {
-    type: types.CHECK_ALL_TODO_LIST,
+    type: types.CHECK_ALL_TODO_LIST_TRUE,
+    isCompletedAll,
+  };
+};
+
+export const ON_CHECK_ALL_TODO_LIST_FALSE = (isCompletedAll) => {
+  return {
+    type: types.CHECK_ALL_TODO_LIST_FALSE,
+    isCompletedAll,
   };
 };
