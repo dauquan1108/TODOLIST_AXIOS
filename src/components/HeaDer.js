@@ -11,13 +11,12 @@ import {
 } from "../actions/index";
 import CallApi from "../utils/CallApi";
 import * as ConFid from "../utils/Config";
-
+let status = true;
 class HeaDer extends Component {
   constructor(props) {
     super(props);
     this.state = {
       value: "",
-      toDoEditingView: {},
     };
     this.input = React.createRef();
   }
@@ -36,75 +35,79 @@ class HeaDer extends Component {
   };
 
   onClickCheckAllItem = () => {
-    const {
-      onCheckAllTodoListTrue,
-      onCheckAllTodoListFalse,
-      isCompletedAll,
-    } = this.props;
-    console.log("xxxxxx", isCompletedAll);
-    //debugger;
-    if (isCompletedAll === true) {
-      onCheckAllTodoListTrue(isCompletedAll, this.onCheckAllTodoList_True());
-    } else if (isCompletedAll === false) {
-      onCheckAllTodoListFalse(isCompletedAll, this.onCheckAllTodoList_false());
+    if (status) {
+      this.onCheckAllTodoList_True();
+      return (status = false);
+    } else {
+      this.onCheckAllTodoList_false();
+      return (status = true);
     }
   };
 
   onCheckAllTodoList_True = () => {
-    const { toDoList } = this.props;
-    toDoList.forEach((todo) => {
-      const id = todo.id;
-      if (todo.isComplete) {
-        CallApi("put", `${ConFid.API_URL}/${id}`, {
-          id: { id },
-          isComplete: false,
-        })
-          .then((response) => {})
-          .catch((error) => {
-            console.log("Lỗi", error);
-          });
-      }
-    });
+    const { toDoList, onCheckAllTodoListTrue } = this.props;
+    onCheckAllTodoListTrue(
+      toDoList.forEach((todo) => {
+        const id = todo.id;
+        if (todo.isComplete === false) {
+          CallApi("put", `${ConFid.API_URL}/${id}`, {
+            id: { id },
+            isComplete: true,
+          })
+            .then((response) => {})
+            .catch((error) => {
+              console.log("Lỗi", error);
+            });
+        }
+      })
+    );
   };
 
   onCheckAllTodoList_false = () => {
-    const { toDoList } = this.props;
-    toDoList.forEach((todo) => {
-      const id = todo.id;
-      if (!todo.isComplete) {
-        CallApi("put", `${ConFid.API_URL}/${id}`, {
-          id: { id },
-          isComplete: true,
-        })
-          .then((response) => {})
-          .catch((error) => {
-            console.log("Lỗi", error);
-          });
-      }
-    });
+    const { toDoList, onCheckAllTodoListFalse } = this.props;
+    onCheckAllTodoListFalse(
+      toDoList.forEach((todo) => {
+        const id = todo.id;
+        if (todo.isComplete === true) {
+          CallApi("put", `${ConFid.API_URL}/${id}`, {
+            id: { id },
+            isComplete: false,
+          })
+            .then((response) => {})
+            .catch((error) => {
+              console.log("Lỗi", error);
+            });
+        }
+      })
+    );
   };
 
   handleSubmit = (event) => {
-    //debugger;
     const { toDoEditing, editTodoList } = this.props;
-    const { toDoEditingView } = this.state;
     const value = this.input.current.value;
     const id = toDoEditing.id;
+    // console.log("----", toDoEditing);
+    // console.log(id);
+    debugger;
     if (toDoEditing && Object.keys(toDoEditing).length !== 0) {
       editTodoList(
         id,
         value,
         CallApi("put", `${ConFid.API_URL}/${id}`, { title: value })
-          .then((response) => {})
+          .then((response) => {
+            // const { toDoEditing } = this.props;
+            // const id = toDoEditing.id;
+            // id = -1;
+          })
           .catch((error) => {
-            console.log("Lỗi Sửa !", error);
+            console.log("Loi sua: ", error);
           })
       );
 
-      //toDoEditing = "";
       // clear toDoEditTing
+
+      // && Object.keys(toDoEditing.id).length === -1
     } else if (value.trim()) {
-      //debugger;
       let value = this.input.current.value;
       this.props.TodoListALL(
         value,
@@ -132,14 +135,7 @@ class HeaDer extends Component {
   };
 
   render() {
-    const { isCompletedAll } = this.props;
-    // let check;
-    // if (!isCompletedAll) {
-    //   check += " image";
-    // } else {
-    //   check += " image_";
-    // }
-    const check = isCompletedAll ? " image_" : " image";
+    const check = status ? " image" : " image_";
 
     return (
       <div className="Header">

@@ -55,3 +55,21 @@ export const ON_CHECK_ALL_TODO_LIST_FALSE = (isCompletedAll) => {
     isCompletedAll,
   };
 };
+
+export const ON_CLICK_ALL = () => {
+  return {
+    type: types.ONCLICK_ALL,
+  };
+};
+
+export const ON_CLICK_ACTIVE = () => {
+  return {
+    type: types.ONCLICK_ACTIVE,
+  };
+};
+
+export const ON_CLICK_COMPLETED = () => {
+  return {
+    type: types.ONCLICK_COMPLETED,
+  };
+};

@@ -18,7 +18,7 @@ class Item extends Component {
       })
         .then((response) => {})
         .catch((error) => {
-          console.log("Lỗi", error);
+          console.log("ID:", item.id, "Loi: ", error);
         })
     );
   };
