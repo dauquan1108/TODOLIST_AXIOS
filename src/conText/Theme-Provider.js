@@ -13,6 +13,7 @@ export default class extends Component {
     this.setState((state) => ({
       theme: state.theme === themes.dark ? themes.light : themes.dark,
     }));
+    localStorage.setItem("keyToDoList", JSON.stringify(this.state.theme)); 
   };
   //cong va tru
   clickCong = () => {

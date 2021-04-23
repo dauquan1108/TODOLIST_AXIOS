@@ -36,66 +36,26 @@ class Footer extends Component {
     );
   };
 
-  // componentDidUpdate(prevProps, prevState) {
-
-  //   //debugger;
-  //   const { toDoList, onClickActiveS, onClickCompletedS } = prevProps;
-  //   const { statusShow } = this.state;
-  //   // switch (statusShow) {
-  //   //   case "active": {
-  //   //     console.log("----active----");
-  //   //     //const todoActive = toDoList.filter((item) => !item.isComplete);
-  //   //     //onClickActiveS();
-  //   //     //return [...todoActive];
-  //   //     break;
-  //   //   }
-  //   //   case "completed": {
-  //   //     console.log("----completed----");
-  //   //     // const todoComplete = toDoList.filter((item) => item.isComplete);
-  //   //     //return [...todoComplete];
-  //   //     //onClickCompletedS();
-  //   //     break;
-  //   //   }
-  //   //   case "all": {
-  //   //     console.log("----All----");
-  //   //     break;
-  //   //   }
-  //   //   default: {
-  //   //     console.log("----xxxxx----");
-  //   //   }
-  //   // }
-
-  //   if (statusShow === "active") {
-  //     // onClickActiveS();
-  //     console.log("----active----");
-  //   }
-  //   if (statusShow === "completed") {
-  //     // onClickCompletedS();
-  //     console.log("----completed----");
-  //   }
-  //   if (statusShow === "all") {
-  //     // onClickCompletedS();
-  //     console.log("----all----");
-  //   }
-  // }
-  onClickStatus = (statusShow) => {
-    this.setState({
-      statusShow,
-    });
+  onClickAll = () => {
+    const { onClickAllS } = this.props;
+    onClickAllS();
   };
   onClickActive = () => {
-    const { toDoList, onClickActiveS, onClickCompletedS } = this.props;
+    const { onClickActiveS } = this.props;
     onClickActiveS();
   };
   onClickCompleted = () => {
-    const { toDoList, onClickActiveS, onClickCompletedS } = this.props;
+    const { onClickCompletedS } = this.props;
     onClickCompletedS();
   };
-  onClickAll = () => {
-    this.onClickStatus("all");
-  };
+
   render() {
-    const { toDoList } = this.props;
+    const {
+      toDoList,
+      onClickAllS,
+      onClickActiveS,
+      onClickCompletedS,
+    } = this.props;
     const { statusShow } = this.state;
     const numberItem = toDoList.filter((num) => !num.isComplete);
     return (
@@ -108,7 +68,7 @@ class Footer extends Component {
             <li>
               <a
                 href="#all"
-                className={statusShow === "all" ? "selected" : ""}
+                className={onClickAllS ? "selected" : ""}
                 onClick={this.onClickAll}
               >
                 All
@@ -117,7 +77,7 @@ class Footer extends Component {
             <li>
               <a
                 href="#active"
-                className={statusShow === "active" ? "selected" : ""}
+                className={onClickActiveS ? "selected" : ""}
                 onClick={this.onClickActive}
               >
                 Active
@@ -126,7 +86,7 @@ class Footer extends Component {
             <li>
               <a
                 href="#completed"
-                className={statusShow === "completed" ? "selected" : ""}
+                className={onClickCompletedS ? "selected" : ""}
                 onClick={this.onClickCompleted}
               >
                 Completed

@@ -176,3 +176,9 @@ input:focus {
     height: 45px;
     padding-top: 1.5%;
 }
+
+/* .statusShow::-webkit-scrollbar {
+    width: 10px;
+    background-color: #e26e29;
+    height: 10px;
+} */

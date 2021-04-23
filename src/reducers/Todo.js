@@ -45,14 +45,16 @@ const Todo = (state = ToDoList, action) => {
           todo.isComplete = true;
         }
       });
-      return ToDoList;
+      return [...ToDoList];
     case types.CHECK_ALL_TODO_LIST_FALSE:
       ToDoList.forEach((todo) => {
         if (todo.isComplete === true) {
           todo.isComplete = false;
         }
       });
-      return ToDoList;
+      return [...ToDoList];
+    case types.ONCLICK_ALL:
+      return [...ToDoList];
     case types.ONCLICK_ACTIVE:
       state = ToDoList.filter((item) => !item.isComplete);
       return [...state];

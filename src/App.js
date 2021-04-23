@@ -60,7 +60,7 @@ class App extends Component {
           <label className="switch">
             <input type="checkbox" onClick={toggleTheme} />
             <span className="slider round" />
-          </label>
+          </label>        
         </div>
         <div className="App">
           <div className="Content">
