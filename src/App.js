@@ -12,10 +12,8 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      toDoList: [],
       toDoEditing: {},
     };
-    this.myHeader = React.createRef();
   }
 
   componentDidMount() {
@@ -28,26 +26,26 @@ class App extends Component {
       .catch((error) => {
         console.log(error);
       });
-    let toDoList = JSON.parse(localStorage.getItem("keyToDoList")) || [];
+    let onColor = JSON.parse(localStorage.getItem("color"));
   }
-  // localStorage.setItem("keyToDoList", JSON.stringify(Test)); dùng trong them
-  // click vào sửa
   onClickPen = (toDoEditing) => {
     this.setState({
       toDoEditing,
     });
   };
 
-  getNumberToDoActive = () => {
-    const { toDoList } = this.state;
-    const toDoListActive = toDoList.filter((num) => !num.isComplete);
-    return toDoListActive.length;
+  onClean = () => {
+    const { toDoEditing } = this.state;
+    this.setState({
+      toDoEditing: {},
+    });
   };
 
   render() {
-    const { toDoEditing, statusShow, toDoList, isCompletedAll } = this.state;
+    const { toDoEditing } = this.state;
+    const { todoListNew } = this.props;
     let { theme, toggleTheme } = this.context;
-    const numberToDoActive = this.getNumberToDoActive();
+    //let onColor = JSON.parse(localStorage.getItem("color"));
     return (
       <div
         style={{
@@ -60,25 +58,13 @@ class App extends Component {
           <label className="switch">
             <input type="checkbox" onClick={toggleTheme} />
             <span className="slider round" />
-          </label>        
+          </label>
         </div>
         <div className="App">
           <div className="Content">
-            <HeaDer
-              isCompletedAll={isCompletedAll}
-              toDoEditing={toDoEditing}
-              onClickCheckAllItem={this.onClickCheckAllItem}
-            />
+            <HeaDer toDoEditing={toDoEditing} onClean={this.onClean} />
             <ToDoList onClickPen={this.onClickPen} />
-            {toDoList.length > 0 && (
-              <Footer
-                toDoList={toDoList}
-                numberToDoActive={numberToDoActive}
-                updateStatusShow={this.updateStatusShow}
-                statusShow={statusShow}
-                removeAllToDoListCompleted={this.removeAllToDoListCompleted}
-              />
-            )}
+            {todoListNew.length > 0 && <Footer />}
           </div>
         </div>
       </div>

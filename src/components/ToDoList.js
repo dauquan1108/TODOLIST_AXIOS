@@ -17,19 +17,11 @@ class ToDoList extends Component {
       });
   }
   render() {
-    const { toDoList, onClickCheckBox, onDeleteItem, onClickPen } = this.props;
+    const { toDoList, onClickPen } = this.props;
     return (
       <div className="ContentToDoList">
         {toDoList.map((item) => {
-          return (
-            <Item
-              key={item.id}
-              item={item}
-              onClickCheckBox={onClickCheckBox}
-              onDeleteItem={onDeleteItem}
-              onClickPen={onClickPen}
-            />
-          );
+          return <Item key={item.id} item={item} onClickPen={onClickPen} />;
         })}
       </div>
     );

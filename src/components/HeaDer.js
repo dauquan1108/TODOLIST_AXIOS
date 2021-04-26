@@ -17,6 +17,7 @@ class HeaDer extends Component {
     super(props);
     this.state = {
       value: "",
+      cleanToDoEditing: {},
     };
     this.input = React.createRef();
   }
@@ -83,30 +84,22 @@ class HeaDer extends Component {
   };
 
   handleSubmit = (event) => {
-    const { toDoEditing, editTodoList } = this.props;
+    const { cleanToDoEditing } = this.state;
+    const { toDoEditing, editTodoList, onClean } = this.props;
     const value = this.input.current.value;
     const id = toDoEditing.id;
-    // console.log("----", toDoEditing);
-    // console.log(id);
     debugger;
     if (toDoEditing && Object.keys(toDoEditing).length !== 0) {
       editTodoList(
         id,
         value,
         CallApi("put", `${ConFid.API_URL}/${id}`, { title: value })
-          .then((response) => {
-            // const { toDoEditing } = this.props;
-            // const id = toDoEditing.id;
-            // id = -1;
-          })
+          .then((response) => {})
           .catch((error) => {
             console.log("Loi sua: ", error);
           })
       );
-
-      // clear toDoEditTing
-
-      // && Object.keys(toDoEditing.id).length === -1
+      onClean();
     } else if (value.trim()) {
       let value = this.input.current.value;
       this.props.TodoListALL(

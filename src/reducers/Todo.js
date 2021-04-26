@@ -10,33 +10,34 @@ const Todo = (state = ToDoList, action) => {
       ToDoList = [...state];
       return [...state];
     case types.ADD_TODO_LIST:
-      ToDoList.push({
+      state.push({
         title: action.item,
         isComplete: false,
       });
-      return [...ToDoList];
+      return [...state];
 
     case types.EDIT_ITEM_TODO_LIST:
       const idEdit = action.id;
       const value = action.value;
-      ToDoList.forEach((todo) => {
+      state.forEach((todo) => {
         if (todo.id === idEdit) {
           todo.title = value;
         }
       });
-      return [...ToDoList];
+      return [...state];
 
     case types.DELETE_TODO_LIST:
-      const todoListNew = ToDoList.filter((todo) => todo.id !== action.id);
-      return todoListNew;
+      const todoListNew = state.filter((todo) => todo.id !== action.id);
+      return [...todoListNew];
+
     case types.ITEM_CHECKBOX:
       const id = action.id;
-      ToDoList.forEach((todo) => {
+      state.forEach((todo) => {
         if (todo.id === id) {
           todo.isComplete = !todo.isComplete;
         }
       });
-      return [...ToDoList];
+      return [...state];
     case types.DELETE_TODO_LIST_ALL:
       return [...state.filter((item) => !item.isComplete)];
     case types.CHECK_ALL_TODO_LIST_TRUE:
