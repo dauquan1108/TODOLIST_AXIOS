@@ -9,6 +9,7 @@ import ThemeProvider from "./conText/Theme-Provider";
 import { createStore } from "redux";
 import { Provider } from "react-redux";
 import appReducers from "./reducers/index";
+import Generators from "../src/components/Generators";
 
 const store = createStore(
   appReducers,
