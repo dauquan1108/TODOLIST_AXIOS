@@ -3,18 +3,12 @@ import Item from "./Item";
 import "./HeaDer.css";
 //----
 import { connect } from "react-redux";
-import { TODO_LIST_VIEW_ALL } from "../actions/index";
-import CallApi from "../utils/CallApi";
+import { ON_TODO_LIST_VIEW_ALL } from "../actions/index";
 
 class ToDoList extends Component {
   componentDidMount() {
-    CallApi("get")
-      .then((response) => {
-        this.props.TodoListALL(response.data);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+    const { getList } = this.props;
+    getList();
   }
   render() {
     const { toDoList, onClickPen } = this.props;
@@ -36,8 +30,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch, props) => {
   return {
-    TodoListALL: (toDoList) => {
-      dispatch(TODO_LIST_VIEW_ALL(toDoList));
+    getList: () => {
+      dispatch(ON_TODO_LIST_VIEW_ALL());
     },
   };
 };

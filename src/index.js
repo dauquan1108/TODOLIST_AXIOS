@@ -5,16 +5,35 @@ import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
 import ThemeProvider from "./conText/Theme-Provider";
-//---
-import { createStore } from "redux";
+
+//---thu vien Redux
+import { createStore, applyMiddleware } from "redux";
 import { Provider } from "react-redux";
+
+// Redux import tu index
 import appReducers from "./reducers/index";
-import Generators from "../src/components/Generators";
+
+// npm install --save redux-devtools-extension -----
+import { composeWithDevTools } from "redux-devtools-extension";
+
+//-----Redux Saga-----
+//import Generators from "../src/components/Generators"; // research saga
+
+// Redux-Saga
+import createSagaMiddleware from "redux-saga";
+import mySaga from "./sagas/";
+
+// Middleware Saga
+const sagaMiddleware = createSagaMiddleware();
 
 const store = createStore(
   appReducers,
-  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+  composeWithDevTools(applyMiddleware(sagaMiddleware))
 );
+
+// Run Saga
+sagaMiddleware.run(mySaga);
+
 ReactDOM.render(
   <ThemeProvider>
     <Provider store={store}>

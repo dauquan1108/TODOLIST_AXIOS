@@ -7,6 +7,12 @@ export const TODO_LIST_VIEW_ALL = (toDoList) => {
   };
 };
 
+export const ON_TODO_LIST_VIEW_ALL = () => {
+  return {
+    type: types.TODO_LIST_VIEW_GET,
+  };
+};
+
 export const ADD_TODO_LIST_ALL = (item) => {
   return {
     type: types.ADD_TODO_LIST,
@@ -32,6 +38,13 @@ export const ON_DELETE_TODO_LIST = (id) => {
 export const ON_ITEM_CHECKBOX = (id) => {
   return {
     type: types.ITEM_CHECKBOX,
+    id,
+  };
+};
+
+export const ON_ITEM_CHECKBOX_SAGA = (id) => {
+  return {
+    type: types.ITEM_CHECKBOX_SAGA,
     id,
   };
 };

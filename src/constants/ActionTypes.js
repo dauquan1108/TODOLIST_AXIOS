@@ -1,5 +1,7 @@
 export const TODO_LIST_VIEW = "TODO_LIST_VIEW";
 
+export const TODO_LIST_VIEW_GET = "TODO_LIST_VIEW_GET";
+
 export const ADD_TODO_LIST = "ADD_TODO_LIST";
 
 export const EDIT_ITEM_TODO_LIST = "EDIT_ITEM_TODO_LIST";
@@ -7,6 +9,8 @@ export const EDIT_ITEM_TODO_LIST = "EDIT_ITEM_TODO_LIST";
 export const DELETE_TODO_LIST = "DELETE_TODO_LIST";
 
 export const ITEM_CHECKBOX = "ITEM_CHECKBOX";
+
+export const ITEM_CHECKBOX_SAGA = "ITEM_CHECKBOX_SAGA";
 
 export const DELETE_TODO_LIST_ALL = "DELETE_TODO_LIST_ALL";
 

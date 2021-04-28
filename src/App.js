@@ -8,6 +8,14 @@ import ThemeContext from "./conText/Theme-Context";
 import CallApi from "./utils/CallApi";
 import { connect } from "react-redux";
 
+// import mySaga from "./sagas/index";
+
+// const sagaMiddleware = createSagaMiddleware();
+// // mount it on the Store
+// const store = createStore(reducer, applyMiddleware(sagaMiddleware));
+
+// // then run the saga
+// sagaMiddleware.run(mySaga);
 class App extends Component {
   constructor(props) {
     super(props);

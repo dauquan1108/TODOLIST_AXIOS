@@ -38,8 +38,10 @@ const Todo = (state = ToDoList, action) => {
         }
       });
       return [...state];
+
     case types.DELETE_TODO_LIST_ALL:
       return [...state.filter((item) => !item.isComplete)];
+
     case types.CHECK_ALL_TODO_LIST_TRUE:
       ToDoList.forEach((todo) => {
         if (todo.isComplete === false) {
@@ -47,6 +49,7 @@ const Todo = (state = ToDoList, action) => {
         }
       });
       return [...ToDoList];
+
     case types.CHECK_ALL_TODO_LIST_FALSE:
       ToDoList.forEach((todo) => {
         if (todo.isComplete === true) {
@@ -54,14 +57,18 @@ const Todo = (state = ToDoList, action) => {
         }
       });
       return [...ToDoList];
+
     case types.ONCLICK_ALL:
       return [...ToDoList];
+
     case types.ONCLICK_ACTIVE:
       state = ToDoList.filter((item) => !item.isComplete);
       return [...state];
+
     case types.ONCLICK_COMPLETED:
       state = ToDoList.filter((item) => item.isComplete);
       return [...state];
+
     default:
       return [...state];
   }
