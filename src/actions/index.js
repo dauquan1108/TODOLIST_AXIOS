@@ -13,9 +13,9 @@ export const ON_TODO_LIST_VIEW_ALL = () => {
   };
 };
 
-export const ADD_TODO_LIST_ALL = (item) => {
+export const ADD_TODO_LIST_ALL_POST = (item) => {
   return {
-    type: types.ADD_TODO_LIST,
+    type: types.ADD_TODO_LIST_POST,
     item,
   };
 };

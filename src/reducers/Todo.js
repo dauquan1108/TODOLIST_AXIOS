@@ -9,7 +9,7 @@ const Todo = (state = ToDoList, action) => {
       state = action.toDoList;
       ToDoList = [...state];
       return [...state];
-    case types.ADD_TODO_LIST:
+    case types.ADD_TODO_LIST_POST:
       state.push({
         title: action.item,
         isComplete: false,

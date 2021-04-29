@@ -16,7 +16,9 @@ class Item extends Component {
       CallApi("put", `${ConFig.API_URL}/${item.id}`, {
         isComplete: item.isComplete === true ? false : true,
       })
-        .then((response) => {})
+        .then((response) => {
+          return response;
+        })
         .catch((error) => {
           console.log("ID:", item.id, "Loi: ", error);
         })
@@ -29,7 +31,7 @@ class Item extends Component {
         id,
         CallApi("delete", `${ConFig.API_URL}/${id}`)
           .then((response) => {
-            console.log("ok");
+            return response;
           })
           .catch((error) => {
             console.log("Xóa thất bại !", error);

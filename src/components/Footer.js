@@ -56,7 +56,6 @@ class Footer extends Component {
       onClickActiveS,
       onClickCompletedS,
     } = this.props;
-    const { statusShow } = this.state;
     const numberItem = toDoList.filter((num) => !num.isComplete);
     return (
       <div className="FooTer">

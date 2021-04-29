@@ -4,18 +4,9 @@ import HeaDer from "./components/HeaDer";
 import ToDoList from "./components/ToDoList";
 import Footer from "./components/Footer";
 import ThemeContext from "./conText/Theme-Context";
-//----axios----
-import CallApi from "./utils/CallApi";
+
+// Redux
 import { connect } from "react-redux";
-
-// import mySaga from "./sagas/index";
-
-// const sagaMiddleware = createSagaMiddleware();
-// // mount it on the Store
-// const store = createStore(reducer, applyMiddleware(sagaMiddleware));
-
-// // then run the saga
-// sagaMiddleware.run(mySaga);
 class App extends Component {
   constructor(props) {
     super(props);
@@ -24,18 +15,6 @@ class App extends Component {
     };
   }
 
-  componentDidMount() {
-    CallApi("get")
-      .then((response) => {
-        this.setState({
-          toDoList: response.data,
-        });
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-    let onColor = JSON.parse(localStorage.getItem("color"));
-  }
   onClickPen = (toDoEditing) => {
     this.setState({
       toDoEditing,
@@ -43,7 +22,6 @@ class App extends Component {
   };
 
   onClean = () => {
-    const { toDoEditing } = this.state;
     this.setState({
       toDoEditing: {},
     });
@@ -53,7 +31,6 @@ class App extends Component {
     const { toDoEditing } = this.state;
     const { todoListNew } = this.props;
     let { theme, toggleTheme } = this.context;
-    //let onColor = JSON.parse(localStorage.getItem("color"));
     return (
       <div
         style={{

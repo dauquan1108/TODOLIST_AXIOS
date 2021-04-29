@@ -4,7 +4,7 @@ import checkAll from "./images/checkAll.svg";
 //----
 import { connect } from "react-redux";
 import {
-  ADD_TODO_LIST_ALL,
+  ADD_TODO_LIST_ALL_POST,
   EDIT_TODO_LIST_ALL,
   ON_CHECK_ALL_TODO_LIST_TRUE,
   ON_CHECK_ALL_TODO_LIST_FALSE,
@@ -84,17 +84,17 @@ class HeaDer extends Component {
   };
 
   handleSubmit = (event) => {
-    const { cleanToDoEditing } = this.state;
     const { toDoEditing, editTodoList, onClean } = this.props;
     const value = this.input.current.value;
     const id = toDoEditing.id;
-    debugger;
     if (toDoEditing && Object.keys(toDoEditing).length !== 0) {
       editTodoList(
         id,
         value,
         CallApi("put", `${ConFid.API_URL}/${id}`, { title: value })
-          .then((response) => {})
+          .then((response) => {
+            return response;
+          })
           .catch((error) => {
             console.log("Loi sua: ", error);
           })
@@ -109,8 +109,7 @@ class HeaDer extends Component {
           isComplete: false,
         })
           .then((response) => {
-            if (response.status === 200) {
-            }
+            return response;
           })
           .catch((error) => {
             console.log("Lỗi thêm mới !!!", error);
@@ -161,7 +160,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch, props) => {
   return {
     TodoListALL: (item) => {
-      dispatch(ADD_TODO_LIST_ALL(item));
+      dispatch(ADD_TODO_LIST_ALL_POST(item));
     },
     editTodoList: (id, value) => {
       dispatch(EDIT_TODO_LIST_ALL(id, value));

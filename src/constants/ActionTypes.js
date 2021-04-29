@@ -2,7 +2,7 @@ export const TODO_LIST_VIEW = "TODO_LIST_VIEW";
 
 export const TODO_LIST_VIEW_GET = "TODO_LIST_VIEW_GET";
 
-export const ADD_TODO_LIST = "ADD_TODO_LIST";
+export const ADD_TODO_LIST_POST = "ADD_TODO_LIST_POST";
 
 export const EDIT_ITEM_TODO_LIST = "EDIT_ITEM_TODO_LIST";
 
