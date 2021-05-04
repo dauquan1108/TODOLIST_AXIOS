@@ -31,6 +31,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch, props) => {
   return {
     getList: () => {
+      console.log(1);
       dispatch(ON_TODO_LIST_VIEW_ALL());
     },
   };

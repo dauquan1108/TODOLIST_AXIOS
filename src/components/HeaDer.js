@@ -8,6 +8,7 @@ import {
   EDIT_TODO_LIST_ALL,
   ON_CHECK_ALL_TODO_LIST_TRUE,
   ON_CHECK_ALL_TODO_LIST_FALSE,
+  ADD_TODO_SAGA,
 } from "../actions/index";
 import CallApi from "../utils/CallApi";
 import * as ConFid from "../utils/Config";
@@ -101,20 +102,21 @@ class HeaDer extends Component {
       );
       onClean();
     } else if (value.trim()) {
-      let value = this.input.current.value;
-      this.props.TodoListALL(
-        value,
-        CallApi("post", `${ConFid.API_URL}`, {
-          title: value,
-          isComplete: false,
-        })
-          .then((response) => {
-            return response;
-          })
-          .catch((error) => {
-            console.log("Lỗi thêm mới !!!", error);
-          })
-      );
+      let item = this.input.current.value;
+      // this.props.TodoListALL(
+      //   value,
+      //   CallApi("post", `${ConFid.API_URL}`, {
+      //     title: value,
+      //     isComplete: false,
+      //   })
+      //     .then((response) => {
+      //       return response;
+      //     })
+      //     .catch((error) => {
+      //       console.log("Lỗi thêm mới !!!", error);
+      //     })
+      // );
+      this.props.addTodoSaga(item);
     }
     this.cleanValue();
     event.preventDefault();
@@ -161,6 +163,9 @@ const mapDispatchToProps = (dispatch, props) => {
   return {
     TodoListALL: (item) => {
       dispatch(ADD_TODO_LIST_ALL_POST(item));
+    },
+    addTodoSaga: (item) => {
+      dispatch(ADD_TODO_SAGA(item));
     },
     editTodoList: (id, value) => {
       dispatch(EDIT_TODO_LIST_ALL(id, value));

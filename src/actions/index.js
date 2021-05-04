@@ -7,7 +7,9 @@ export const TODO_LIST_VIEW_ALL = (toDoList) => {
   };
 };
 
+// Saga
 export const ON_TODO_LIST_VIEW_ALL = () => {
+  console.log(2);
   return {
     type: types.TODO_LIST_VIEW_GET,
   };
@@ -17,6 +19,15 @@ export const ADD_TODO_LIST_ALL_POST = (item) => {
   return {
     type: types.ADD_TODO_LIST_POST,
     item,
+  };
+};
+
+export const ADD_TODO_SAGA = (item) => {
+  return {
+    type: types.ADD_TODO_LIST_SAGA,
+    payload: {
+      item,
+    },
   };
 };
 

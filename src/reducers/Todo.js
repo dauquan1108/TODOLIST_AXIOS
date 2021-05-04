@@ -5,12 +5,14 @@ let ToDoList = [];
 const Todo = (state = ToDoList, action) => {
   switch (action.type) {
     case types.TODO_LIST_VIEW:
+      console.log(5);
       //toDoList => lay o file trong file Todo.js
       state = action.toDoList;
       ToDoList = [...state];
       return [...state];
     case types.ADD_TODO_LIST_POST:
       state.push({
+        id: ToDoList.length + 1,
         title: action.item,
         isComplete: false,
       });

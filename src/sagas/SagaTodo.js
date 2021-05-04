@@ -5,14 +5,12 @@ import CallApi from "../utils/CallApi";
 export function* watcherGetListTodo() {
   while (true) {
     yield take(types.TODO_LIST_VIEW_GET);
-    const response = yield CallApi()
-      .then((response) => {
-        return response;
-      })
-      .catch((error) => {
-        console.log("Loi: ", error);
-      });
+    console.log(3);
+    const response = yield CallApi().catch((error) => {
+      console.log("Loi: ", error);
+    });
     if (response.status === 200) {
+      console.log(4);
       yield put({ type: types.TODO_LIST_VIEW, toDoList: response.data });
     }
   }
@@ -20,6 +18,7 @@ export function* watcherGetListTodo() {
 
 export function* watcherPutCheckItem() {
   while (true) {
-    yield take();
+    const value = yield take(types.ADD_TODO_LIST_SAGA);
+    console.log(value.payload.item);
   }
 }

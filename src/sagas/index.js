@@ -1,6 +1,6 @@
 import { all } from "redux-saga/effects";
-import { watcherGetListTodo } from "./SagaTodo";
+import { watcherGetListTodo, watcherPutCheckItem } from "./SagaTodo";
 
 export default function* mySaga() {
-  yield all([watcherGetListTodo()]);
+  yield all([watcherGetListTodo(), watcherPutCheckItem()]);
 }

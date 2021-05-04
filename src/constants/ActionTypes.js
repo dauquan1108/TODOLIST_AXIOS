@@ -1,8 +1,10 @@
 export const TODO_LIST_VIEW = "TODO_LIST_VIEW";
-
+//Saga
 export const TODO_LIST_VIEW_GET = "TODO_LIST_VIEW_GET";
 
 export const ADD_TODO_LIST_POST = "ADD_TODO_LIST_POST";
+//saga
+export const ADD_TODO_LIST_SAGA = "ADD_TODO_LIST_SAGA";
 
 export const EDIT_ITEM_TODO_LIST = "EDIT_ITEM_TODO_LIST";
 
