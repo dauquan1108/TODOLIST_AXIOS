@@ -1,24 +1,36 @@
-export const TODO_LIST_VIEW = "TODO_LIST_VIEW";
-//Saga
 export const TODO_LIST_VIEW_GET = "TODO_LIST_VIEW_GET";
 
 export const ADD_TODO_LIST_POST = "ADD_TODO_LIST_POST";
-//saga
-export const ADD_TODO_LIST_SAGA = "ADD_TODO_LIST_SAGA";
 
 export const EDIT_ITEM_TODO_LIST = "EDIT_ITEM_TODO_LIST";
 
-export const DELETE_TODO_LIST = "DELETE_TODO_LIST";
+export const DELETE_ITEM_TODO_LIST = "DELETE_ITEM_TODO_LIST";
 
 export const ITEM_CHECKBOX = "ITEM_CHECKBOX";
-
-export const ITEM_CHECKBOX_SAGA = "ITEM_CHECKBOX_SAGA";
-
-export const DELETE_TODO_LIST_ALL = "DELETE_TODO_LIST_ALL";
 
 export const CHECK_ALL_TODO_LIST_TRUE = "CHECK_ALL_TODO_LIST_TRUE";
 
 export const CHECK_ALL_TODO_LIST_FALSE = "CHECK_ALL_TODO_LIST_FALSE";
+
+///--------------------saga--------------------///
+
+export const TODO_LIST_VIEW_SAGA = "TODO_LIST_VIEW_SAGA";
+
+export const ADD_TODO_LIST_SAGA = "ADD_TODO_LIST_SAGA";
+
+export const EDIT_ITEM_TODO_LIST_SAGA = "EDIT_ITEM_TODO_LIST_SAGA";
+
+export const DELETE_ITEM_TODO_LIST_SAGA = "DELETE_ITEM_TODO_LIST_SAGA";
+
+export const ITEM_CHECKBOX_SAGA = "ITEM_CHECKBOX_SAGA";
+
+export const CHECK_ALL_TODO_LIST_TRUE_SAGA = "CHECK_ALL_TODO_LIST_TRUE_SAGA";
+
+export const CHECK_ALL_TODO_LIST_FALSE_SAGA = "CHECK_ALL_TODO_LIST_FALSE_SAGA";
+
+///--------------------saga--------------------///
+
+export const DELETE_TODO_LIST_ALL = "DELETE_TODO_LIST_ALL";
 
 export const ONCLICK_ALL = "ONCLICK_ALL";
 

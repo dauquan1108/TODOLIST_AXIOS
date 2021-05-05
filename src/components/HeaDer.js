@@ -4,10 +4,9 @@ import checkAll from "./images/checkAll.svg";
 //----
 import { connect } from "react-redux";
 import {
-  ADD_TODO_LIST_ALL_POST,
-  EDIT_TODO_LIST_ALL,
-  ON_CHECK_ALL_TODO_LIST_TRUE,
-  ON_CHECK_ALL_TODO_LIST_FALSE,
+  EDIT_ITEM_TODO_LIST_SAGA,
+  ON_CHECK_ALL_TODO_LIST_TRUE_SAGA,
+  ON_CHECK_ALL_TODO_LIST_FALSE_SAGA,
   ADD_TODO_SAGA,
 } from "../actions/index";
 import CallApi from "../utils/CallApi";
@@ -47,75 +46,24 @@ class HeaDer extends Component {
   };
 
   onCheckAllTodoList_True = () => {
-    const { toDoList, onCheckAllTodoListTrue } = this.props;
-    onCheckAllTodoListTrue(
-      toDoList.forEach((todo) => {
-        const id = todo.id;
-        if (todo.isComplete === false) {
-          CallApi("put", `${ConFid.API_URL}/${id}`, {
-            id: { id },
-            isComplete: true,
-          })
-            .then((response) => {})
-            .catch((error) => {
-              console.log("Lỗi", error);
-            });
-        }
-      })
-    );
+    const { toDoList, onCheckAllTodoListTrueSaga } = this.props;
+    onCheckAllTodoListTrueSaga(toDoList);
   };
 
   onCheckAllTodoList_false = () => {
-    const { toDoList, onCheckAllTodoListFalse } = this.props;
-    onCheckAllTodoListFalse(
-      toDoList.forEach((todo) => {
-        const id = todo.id;
-        if (todo.isComplete === true) {
-          CallApi("put", `${ConFid.API_URL}/${id}`, {
-            id: { id },
-            isComplete: false,
-          })
-            .then((response) => {})
-            .catch((error) => {
-              console.log("Lỗi", error);
-            });
-        }
-      })
-    );
+    const { toDoList, onCheckAllTodoListFalseSaga } = this.props;
+    onCheckAllTodoListFalseSaga(toDoList);
   };
 
   handleSubmit = (event) => {
-    const { toDoEditing, editTodoList, onClean } = this.props;
+    const { toDoEditing, editItemTodoListSaga, onClean } = this.props;
     const value = this.input.current.value;
     const id = toDoEditing.id;
     if (toDoEditing && Object.keys(toDoEditing).length !== 0) {
-      editTodoList(
-        id,
-        value,
-        CallApi("put", `${ConFid.API_URL}/${id}`, { title: value })
-          .then((response) => {
-            return response;
-          })
-          .catch((error) => {
-            console.log("Loi sua: ", error);
-          })
-      );
+      editItemTodoListSaga(id, value);
       onClean();
     } else if (value.trim()) {
       let item = this.input.current.value;
-      // this.props.TodoListALL(
-      //   value,
-      //   CallApi("post", `${ConFid.API_URL}`, {
-      //     title: value,
-      //     isComplete: false,
-      //   })
-      //     .then((response) => {
-      //       return response;
-      //     })
-      //     .catch((error) => {
-      //       console.log("Lỗi thêm mới !!!", error);
-      //     })
-      // );
       this.props.addTodoSaga(item);
     }
     this.cleanValue();
@@ -161,20 +109,17 @@ const mapStateToProps = (state) => {
 };
 const mapDispatchToProps = (dispatch, props) => {
   return {
-    TodoListALL: (item) => {
-      dispatch(ADD_TODO_LIST_ALL_POST(item));
-    },
     addTodoSaga: (item) => {
       dispatch(ADD_TODO_SAGA(item));
     },
-    editTodoList: (id, value) => {
-      dispatch(EDIT_TODO_LIST_ALL(id, value));
+    editItemTodoListSaga: (id, value) => {
+      dispatch(EDIT_ITEM_TODO_LIST_SAGA(id, value));
     },
-    onCheckAllTodoListTrue: (isCompletedAll) => {
-      dispatch(ON_CHECK_ALL_TODO_LIST_TRUE(isCompletedAll));
+    onCheckAllTodoListTrueSaga: (isCompletedAll) => {
+      dispatch(ON_CHECK_ALL_TODO_LIST_TRUE_SAGA(isCompletedAll));
     },
-    onCheckAllTodoListFalse: (isCompletedAll) => {
-      dispatch(ON_CHECK_ALL_TODO_LIST_FALSE(isCompletedAll));
+    onCheckAllTodoListFalseSaga: (isCompletedAll) => {
+      dispatch(ON_CHECK_ALL_TODO_LIST_FALSE_SAGA(isCompletedAll));
     },
   };
 };

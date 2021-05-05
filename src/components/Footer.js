@@ -66,7 +66,7 @@ class Footer extends Component {
           <ul className="filters">
             <li>
               <a
-                href="#Activeeteeaometee"
+                href="#All"
                 className={onClickAllS ? "selected" : ""}
                 onClick={this.onClickAll}
               >

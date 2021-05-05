@@ -3,40 +3,21 @@ import "./HeaDer.css";
 import deleteImg from "./images/delete.svg";
 import penImg from "./images/pen.svg";
 //----
-import { ON_DELETE_TODO_LIST, ON_ITEM_CHECKBOX } from "../actions/index";
+import {
+  ON_ITEM_DELETE_TODO_LIST_SAGA,
+  ON_ITEM_CHECKBOX_SAGA,
+} from "../actions/index";
 import { connect } from "react-redux";
-import CallApi from "../utils/CallApi";
-import * as ConFig from "../utils/Config";
 
 class Item extends Component {
   onCheckBox = () => {
-    const { item, onItemCheckbox } = this.props;
-    onItemCheckbox(
-      item.id,
-      CallApi("put", `${ConFig.API_URL}/${item.id}`, {
-        isComplete: item.isComplete === true ? false : true,
-      })
-        .then((response) => {
-          return response;
-        })
-        .catch((error) => {
-          console.log("ID:", item.id, "Loi: ", error);
-        })
-    );
+    const { item } = this.props;
+    this.props.onItemCheckboxSaga(item);
   };
   onDeleteItemTodo = () => {
     if (window.confirm("Bạn có chắc muốn xóa item này ?")) {
       const id = this.props.item.id;
-      this.props.onDeleteTodoItem(
-        id,
-        CallApi("delete", `${ConFig.API_URL}/${id}`)
-          .then((response) => {
-            return response;
-          })
-          .catch((error) => {
-            console.log("Xóa thất bại !", error);
-          })
-      );
+      this.props.onDeleteTodoItemSaga(id);
     }
   };
 
@@ -78,11 +59,11 @@ const mapStateToProps = (state) => {
 };
 const mapDispatchToProps = (dispatch, props) => {
   return {
-    onDeleteTodoItem: (id) => {
-      dispatch(ON_DELETE_TODO_LIST(id));
+    onDeleteTodoItemSaga: (id) => {
+      dispatch(ON_ITEM_DELETE_TODO_LIST_SAGA(id));
     },
-    onItemCheckbox: (id) => {
-      dispatch(ON_ITEM_CHECKBOX(id));
+    onItemCheckboxSaga: (id) => {
+      dispatch(ON_ITEM_CHECKBOX_SAGA(id));
     },
   };
 };

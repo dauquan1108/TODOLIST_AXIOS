@@ -1,15 +1,16 @@
 import React, { Component } from "react";
 import Item from "./Item";
 import "./HeaDer.css";
-//----
+//---- saga-----//
 import { connect } from "react-redux";
-import { ON_TODO_LIST_VIEW_ALL } from "../actions/index";
+import { ON_TODO_LIST_VIEW_ALL_SAGA } from "../actions/index";
 
 class ToDoList extends Component {
   componentDidMount() {
     const { getList } = this.props;
     getList();
   }
+
   render() {
     const { toDoList, onClickPen } = this.props;
     return (
@@ -32,7 +33,7 @@ const mapDispatchToProps = (dispatch, props) => {
   return {
     getList: () => {
       console.log(1);
-      dispatch(ON_TODO_LIST_VIEW_ALL());
+      dispatch(ON_TODO_LIST_VIEW_ALL_SAGA());
     },
   };
 };
