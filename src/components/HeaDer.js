@@ -9,8 +9,6 @@ import {
   ON_CHECK_ALL_TODO_LIST_FALSE_SAGA,
   ADD_TODO_SAGA,
 } from "../actions/index";
-import CallApi from "../utils/CallApi";
-import * as ConFid from "../utils/Config";
 let status = true;
 class HeaDer extends Component {
   constructor(props) {
@@ -78,7 +76,6 @@ class HeaDer extends Component {
 
   render() {
     const check = status ? " image" : " image_";
-
     return (
       <div className="Header">
         <form onSubmit={this.handleSubmit}>

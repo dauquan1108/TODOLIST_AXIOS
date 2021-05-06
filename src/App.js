@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import "./components/HeaDer.css";
+import Menu from "./reactrouter/Menu";
 import HeaDer from "./components/HeaDer";
 import ToDoList from "./components/ToDoList";
 import Footer from "./components/Footer";
@@ -39,6 +40,9 @@ class App extends Component {
           color: theme.foreground,
         }}
       >
+        <div>
+          <Menu />
+        </div>
         <div className="ButtonChange">
           <label className="switch">
             <input type="checkbox" onClick={toggleTheme} />

@@ -10,6 +10,7 @@ const Todo = (state = ToDoList, action) => {
       state = action.toDoList;
       ToDoList = [...state];
       return [...state];
+
     case types.ADD_TODO_LIST_POST:
       console.log("ToDoList", ToDoList);
       const item = action.title;

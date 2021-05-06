@@ -23,6 +23,9 @@ import { composeWithDevTools } from "redux-devtools-extension";
 import createSagaMiddleware from "redux-saga";
 import mySaga from "./sagas/";
 
+//bootstrap
+import "bootstrap/dist/css/bootstrap.min.css";
+
 // Middleware Saga
 const sagaMiddleware = createSagaMiddleware();
 
