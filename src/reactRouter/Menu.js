@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import logoImg from "../components/images/logo.svg";
 import {
   BrowserRouter as Router,
   Switch,
@@ -6,10 +7,11 @@ import {
   NavLink,
   Link,
 } from "react-router-dom";
-import Home from "./Home";
+import TodoListAll from "../components/TodoListAll";
 import Service from "./Service";
 import Disabled from "./Disabled";
 import NotFound from "./NotFound";
+import "./style.css";
 
 class Menu extends Component {
   render() {
@@ -18,7 +20,10 @@ class Menu extends Component {
         <Router>
           <nav className="navbar navbar-expand-lg navbar-light bg-light">
             <div className="container-fluid">
-              <Link className="navbar-brand">Navbar</Link>
+              <Link className="navbar-brand" to="/">
+                {/* Navbar */}
+                <img className="logo" src={logoImg} alt="logo" />
+              </Link>
               <button
                 className="navbar-toggler"
                 type="button"
@@ -74,7 +79,7 @@ class Menu extends Component {
                     </NavLink>
                   </li>
                 </ul>
-                <form className="d-flex">
+                {/* <form className="d-flex">
                   <input
                     className="form-control me-2"
                     type="search"
@@ -84,13 +89,13 @@ class Menu extends Component {
                   <button className="btn btn-outline-success" type="submit">
                     Search
                   </button>
-                </form>
+                </form> */}
               </div>
             </div>
           </nav>
           <Switch>
-            <Route exact path="/">
-              <Home />
+            <Route exact strict path="/">
+              <TodoListAll />
             </Route>
             <Route path="/service">
               <Service />

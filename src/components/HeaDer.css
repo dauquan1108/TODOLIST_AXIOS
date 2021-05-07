@@ -58,7 +58,7 @@ input:checked+.slider:before {
     border-radius: 50%;
 }
 
-.TodoListAll {
+.TodoList {
     text-align: center;
     width: 40%;
     margin: auto;
@@ -176,6 +176,7 @@ input:focus {
     height: 45px;
     padding-top: 1.5%;
 }
+
 
 /* .statusShow::-webkit-scrollbar {
     width: 10px;

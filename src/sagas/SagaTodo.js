@@ -52,7 +52,6 @@ export function* watcherItemCheckBox() {
 export function* watcherCheckAllTodoListTrue() {
   while (true) {
     const toDoList = yield take(types.CHECK_ALL_TODO_LIST_TRUE_SAGA);
-    console.log("xxx", toDoList);
     yield call(checkAllTodoListTrue, toDoList);
   }
 }
@@ -60,7 +59,6 @@ export function* watcherCheckAllTodoListTrue() {
 export function* watcherCheckAllTodoListFalse() {
   while (true) {
     const toDoList = yield take(types.CHECK_ALL_TODO_LIST_FALSE_SAGA);
-    console.log("vvv", toDoList);
     yield call(checkAllTodoListFalse, toDoList);
   }
 }
@@ -104,10 +102,8 @@ export function* checkBoxItem(item) {
 
 export function* checkAllTodoListTrue(toDoList) {
   const todo = toDoList.todoList;
-  console.log("+++true+++", todo);
   todo.forEach((item) => {
     const id = item.id;
-    console.log("true", id);
     if (item.isComplete === false) {
       CallApi("put", `${ConFig.API_URL}/${id}`, {
         id: { id },
@@ -122,10 +118,8 @@ export function* checkAllTodoListTrue(toDoList) {
 
 export function* checkAllTodoListFalse(toDoList) {
   const todo = toDoList.todoList;
-  console.log("---false---", todo);
   todo.forEach((item) => {
     const id = item.id;
-    console.log("false", id);
     if (item.isComplete === true) {
       CallApi("put", `${ConFig.API_URL}/${id}`, {
         id: { id },

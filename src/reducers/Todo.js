@@ -12,14 +12,10 @@ const Todo = (state = ToDoList, action) => {
       return [...state];
 
     case types.ADD_TODO_LIST_POST:
-      console.log("ToDoList", ToDoList);
       const item = action.title;
-      state.push({
-        id: state.length + 1,
-        title: item,
-        isComplete: false,
-      });
-      return [...state];
+      let idItem = state.length + 1;
+      let itemId = String(idItem);
+      return [...state, { id: itemId, title: item, isComplete: false }];
 
     case types.EDIT_ITEM_TODO_LIST:
       const idEdit = action.item.id;
@@ -49,23 +45,21 @@ const Todo = (state = ToDoList, action) => {
 
     case types.CHECK_ALL_TODO_LIST_TRUE:
       const todoList = action.toDoList.todoList;
-      console.log(action);
       todoList.forEach((todo) => {
         if (todo.isComplete === false) {
           todo.isComplete = true;
         }
       });
-      return [...ToDoList];
+      return [...state];
 
     case types.CHECK_ALL_TODO_LIST_FALSE:
-      console.log(action);
       const todo = action.toDoList.todoList;
       todo.forEach((todo) => {
         if (todo.isComplete === true) {
           todo.isComplete = false;
         }
       });
-      return [...ToDoList];
+      return [...state];
 
     case types.ONCLICK_ALL:
       return [...ToDoList];

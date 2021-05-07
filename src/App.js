@@ -1,11 +1,10 @@
 import React, { Component } from "react";
 import "./components/HeaDer.css";
 import Menu from "./reactRouter/Menu";
-import TodoListAll from "./components/TodoListAll";
 import ThemeContext from "./conText/Theme-Context";
 class App extends Component {
   render() {
-    let { theme, toggleTheme } = this.context;
+    let { theme } = this.context;
     return (
       <div
         style={{
@@ -17,18 +16,9 @@ class App extends Component {
         <div>
           <Menu />
         </div>
-        <div className="ButtonChange">
-          <label className="switch">
-            <input type="checkbox" onClick={toggleTheme} />
-            <span className="slider round" />
-          </label>
-        </div>
-        <TodoListAll />
       </div>
     );
   }
 }
 App.contextType = ThemeContext;
 export default App;
-/// dau quan
-//Test thu 6

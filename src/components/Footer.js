@@ -11,26 +11,18 @@ import {
 } from "../actions/index";
 import CallApi from "../utils/CallApi";
 import * as ConFig from "../utils/Config";
+///--------
+import { getVisibleTodo } from "../selectors";
 
 class Footer extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      statusShow: "all", // statusShow = all || active || completed
-    };
-  }
   removeAllTodoList = () => {
-    const { onDeleteAllTodoList, toDoList } = this.props;
+    const { onDeleteAllTodoList, todo } = this.props;
     onDeleteAllTodoList(
-      toDoList.forEach((todo) => {
+      todo.forEach((todo) => {
         if (todo.isComplete === true) {
-          CallApi("delete", `${ConFig.API_URL}/${todo.id}`)
-            .then((response) => {
-              console.log("ok", response);
-            })
-            .catch((error) => {
-              console.log("Loi: ", error, "id ", todo.id);
-            });
+          CallApi("delete", `${ConFig.API_URL}/${todo.id}`).catch((error) => {
+            console.log("Loi: ", error, "id ", todo.id);
+          });
         }
       })
     );
@@ -50,13 +42,8 @@ class Footer extends Component {
   };
 
   render() {
-    const {
-      toDoList,
-      onClickAllS,
-      onClickActiveS,
-      onClickCompletedS,
-    } = this.props;
-    const numberItem = toDoList.filter((num) => !num.isComplete);
+    const { todo, onClickAllS, onClickActiveS, onClickCompletedS } = this.props;
+    const numberItem = todo.filter((num) => !num.isComplete);
     return (
       <div className="FooTer">
         <footer className="footer">
@@ -92,7 +79,7 @@ class Footer extends Component {
               </a>
             </li>
           </ul>
-          {toDoList.filter((num) => num.isComplete).length > 0 && (
+          {todo.filter((num) => num.isComplete).length > 0 && (
             <a
               href="#ClearCompleted"
               className="clear-completed"
@@ -108,7 +95,8 @@ class Footer extends Component {
 }
 const mapStateToProps = (state) => {
   return {
-    toDoList: state.toDoList,
+    todo: state.toDoList,
+    toDoList: getVisibleTodo(state),
   };
 };
 const mapDispatchToProps = (dispatch, props) => {

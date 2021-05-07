@@ -3,6 +3,7 @@ import "./HeaDer.css";
 import HeaDer from "./HeaDer";
 import ToDoList from "./ToDoList";
 import Footer from "./Footer";
+import ThemeContext from "../conText/Theme-Context";
 
 // Redux
 import { connect } from "react-redux";
@@ -27,13 +28,22 @@ class TodoListAll extends Component {
   };
 
   render() {
+    let { toggleTheme } = this.context;
     const { toDoEditing } = this.state;
     const { todoListNew } = this.props;
     return (
       <div className="TodoListAll">
-        <HeaDer toDoEditing={toDoEditing} onClean={this.onClean} />
-        <ToDoList onClickPen={this.onClickPen} />
-        {todoListNew.length > 0 && <Footer />}
+        <div className="ButtonChange">
+          <label className="switch">
+            <input type="checkbox" onClick={toggleTheme} />
+            <span className="slider round" />
+          </label>
+        </div>
+        <div className="TodoList">
+          <HeaDer toDoEditing={toDoEditing} onClean={this.onClean} />
+          <ToDoList onClickPen={this.onClickPen} />
+          {todoListNew.length > 0 && <Footer />}
+        </div>
       </div>
     );
   }
@@ -44,4 +54,5 @@ const mapStateToProps = (state) => {
   };
 };
 
+TodoListAll.contextType = ThemeContext;
 export default connect(mapStateToProps, null)(TodoListAll);
