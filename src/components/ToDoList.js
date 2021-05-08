@@ -4,6 +4,8 @@ import "./HeaDer.css";
 //---- saga-----//
 import { connect } from "react-redux";
 import { ON_TODO_LIST_VIEW_ALL_SAGA } from "../actions/index";
+//Reselect
+import { getTodos } from "../selectors";
 
 class ToDoList extends Component {
   componentDidMount() {
@@ -13,6 +15,7 @@ class ToDoList extends Component {
 
   render() {
     const { toDoList, onClickPen } = this.props;
+
     return (
       <div className="ContentToDoList">
         {toDoList.map((item) => {
@@ -23,9 +26,9 @@ class ToDoList extends Component {
   }
 }
 
-const mapStateToProps = (state) => {
+const mapStateToProps = (state, { tabKey }) => {
   return {
-    toDoList: state.toDoList,
+    toDoList: getTodos(state, tabKey),
   };
 };
 

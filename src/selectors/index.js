@@ -1,20 +1,21 @@
 import { createSelector } from "reselect";
-let statusShow = "all";
 
-const getVisibilityFilter = (state) => state.visibilityFilter;
-const getTodo = (state) => state.toDoList;
+const getKey = (state, tabKey) => tabKey;
+const getAll = (state, tabKey) => state.toDoList;
 
-export const getVisibleTodo = createSelector(
-  [getVisibilityFilter, getTodo],
-  (visibilityFilter, toDoList) => {
-    debugger;
-    switch (visibilityFilter) {
-      case "all":
-        return toDoList;
-      case "active":
-        return toDoList.filter((item) => !item.isComplete);
-      case "completed":
-        return toDoList.filter((item) => item.isComplete);
-    }
+export const getFooterTodos = createSelector([getAll, getKey], (todoAll) => {
+  // tính ra số phần tử đã được active
+  const count = todoAll.filter((item) => !item.isComplete).length || 0;
+  return count;
+});
+
+export const getTodos = createSelector([getAll, getKey], (todoAll, tabKey) => {
+  switch (tabKey) {
+    case "ACTIVE":
+      return todoAll.filter((item) => !item.isComplete); // array moi
+    case "COMPLETED":
+      return todoAll.filter((item) => item.isComplete); // array moi
+    default:
+      return [...todoAll];
   }
-);
+});

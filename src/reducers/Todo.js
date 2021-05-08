@@ -60,18 +60,6 @@ const Todo = (state = ToDoList, action) => {
         }
       });
       return [...state];
-
-    case types.ONCLICK_ALL:
-      return [...ToDoList];
-
-    case types.ONCLICK_ACTIVE:
-      state = ToDoList.filter((item) => !item.isComplete);
-      return [...state];
-
-    case types.ONCLICK_COMPLETED:
-      state = ToDoList.filter((item) => item.isComplete);
-      return [...state];
-
     default:
       return [...state];
   }

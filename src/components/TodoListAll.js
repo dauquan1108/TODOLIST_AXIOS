@@ -12,6 +12,7 @@ class TodoListAll extends Component {
     super(props);
     this.state = {
       toDoEditing: {},
+      tabKey: "ALL",
     };
   }
 
@@ -27,10 +28,19 @@ class TodoListAll extends Component {
     });
   };
 
+  onChangeTab = (tabKey) => {
+    this.setState({
+      tabKey: tabKey,
+    });
+  };
+
   render() {
     let { toggleTheme } = this.context;
-    const { toDoEditing } = this.state;
+    const { toDoEditing, tabKey } = this.state;
     const { todoListNew } = this.props;
+
+    console.log({ todoListNew });
+
     return (
       <div className="TodoListAll">
         <div className="ButtonChange">
@@ -41,8 +51,8 @@ class TodoListAll extends Component {
         </div>
         <div className="TodoList">
           <HeaDer toDoEditing={toDoEditing} onClean={this.onClean} />
-          <ToDoList onClickPen={this.onClickPen} />
-          {todoListNew.length > 0 && <Footer />}
+          <ToDoList tabKey={tabKey} onClickPen={this.onClickPen} />
+          {todoListNew.length > 0 && <Footer onChangeTab={this.onChangeTab} />}
         </div>
       </div>
     );

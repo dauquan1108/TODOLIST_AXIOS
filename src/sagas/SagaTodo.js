@@ -14,7 +14,14 @@ export function* watcherGetListTodo() {
     });
     if (response.status === 200) {
       console.log(4);
+      // TODO SOMETHING
+      const todoItem = response.data; // => array
       yield put({ type: types.TODO_LIST_VIEW_GET, toDoList: response.data });
+      // tính toán cho cục count
+      // yield put({
+      //   type: types.COUNT,
+      //   payload: { all: 4, active: 3, isComplete: 1 },
+      // });
     }
   }
 }
