@@ -7,6 +7,7 @@ import {
   watcherItemCheckBox,
   watcherCheckAllTodoListTrue,
   watcherCheckAllTodoListFalse,
+  watcherDeleteTodoListAll,
 } from "./SagaTodo";
 
 export default function* mySaga() {
@@ -18,5 +19,6 @@ export default function* mySaga() {
     watcherItemCheckBox(),
     watcherCheckAllTodoListTrue(),
     watcherCheckAllTodoListFalse(),
+    watcherDeleteTodoListAll(),
   ]);
 }

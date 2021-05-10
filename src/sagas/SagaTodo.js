@@ -14,14 +14,7 @@ export function* watcherGetListTodo() {
     });
     if (response.status === 200) {
       console.log(4);
-      // TODO SOMETHING
-      const todoItem = response.data; // => array
       yield put({ type: types.TODO_LIST_VIEW_GET, toDoList: response.data });
-      // tính toán cho cục count
-      // yield put({
-      //   type: types.COUNT,
-      //   payload: { all: 4, active: 3, isComplete: 1 },
-      // });
     }
   }
 }
@@ -67,6 +60,13 @@ export function* watcherCheckAllTodoListFalse() {
   while (true) {
     const toDoList = yield take(types.CHECK_ALL_TODO_LIST_FALSE_SAGA);
     yield call(checkAllTodoListFalse, toDoList);
+  }
+}
+
+export function* watcherDeleteTodoListAll() {
+  while (true) {
+    const todoList = yield take(types.DELETE_TODO_LIST_ALL_SAGA);
+    yield call(deleteTodoListAll, todoList);
   }
 }
 
@@ -137,4 +137,16 @@ export function* checkAllTodoListFalse(toDoList) {
     }
   });
   yield put({ type: types.CHECK_ALL_TODO_LIST_FALSE, toDoList });
+}
+
+export function* deleteTodoListAll(todoList) {
+  const todo = todoList.todoList;
+  todo.forEach((item) => {
+    if (item.isComplete === true) {
+      CallApi("delete", `${ConFig.API_URL}/${item.id}`).catch((error) => {
+        console.log("Loi: ", error);
+      });
+    }
+  });
+  yield put({ type: types.DELETE_TODO_LIST_ALL });
 }

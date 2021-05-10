@@ -12,6 +12,14 @@ export const CHECK_ALL_TODO_LIST_TRUE = "CHECK_ALL_TODO_LIST_TRUE";
 
 export const CHECK_ALL_TODO_LIST_FALSE = "CHECK_ALL_TODO_LIST_FALSE";
 
+export const DELETE_TODO_LIST_ALL = "DELETE_TODO_LIST_ALL";
+
+export const ONCLICK_ALL = "ONCLICK_ALL";
+
+export const ONCLICK_ACTIVE = "ONCLICK_ACTIVE";
+
+export const ONCLICK_COMPLETED = "ONCLICK_COMPLETED";
+
 ///--------------------saga--------------------///
 
 export const TODO_LIST_VIEW_SAGA = "TODO_LIST_VIEW_SAGA";
@@ -28,12 +36,6 @@ export const CHECK_ALL_TODO_LIST_TRUE_SAGA = "CHECK_ALL_TODO_LIST_TRUE_SAGA";
 
 export const CHECK_ALL_TODO_LIST_FALSE_SAGA = "CHECK_ALL_TODO_LIST_FALSE_SAGA";
 
+export const DELETE_TODO_LIST_ALL_SAGA = "DELETE_TODO_LIST_ALL_SAGA";
+
 ///--------------------saga--------------------///
-
-export const DELETE_TODO_LIST_ALL = "DELETE_TODO_LIST_ALL";
-
-export const ONCLICK_ALL = "ONCLICK_ALL";
-
-export const ONCLICK_ACTIVE = "ONCLICK_ACTIVE";
-
-export const ONCLICK_COMPLETED = "ONCLICK_COMPLETED";

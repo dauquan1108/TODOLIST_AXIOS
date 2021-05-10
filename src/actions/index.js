@@ -50,6 +50,13 @@ export const ON_CHECK_ALL_TODO_LIST_FALSE = (isCompletedAll) => {
   };
 };
 
+export const ON_DELETE_TODO_LIST_ALL = (todoList) => {
+  return {
+    type: types.DELETE_TODO_LIST_ALL,
+    todoList,
+  };
+};
+
 //-----------Saga------------//
 
 export const ON_TODO_LIST_VIEW_ALL_SAGA = () => {
@@ -104,13 +111,14 @@ export const ON_CHECK_ALL_TODO_LIST_FALSE_SAGA = (todoList) => {
   };
 };
 
-//-----------Saga------------//
-
-export const ON_DELETE_TODO_LIST_ALL = () => {
+export const ON_DELETE_TODO_LIST_ALL_SAGA = (todoList) => {
   return {
-    type: types.DELETE_TODO_LIST_ALL,
+    type: types.DELETE_TODO_LIST_ALL_SAGA,
+    todoList,
   };
 };
+
+//-----------Saga------------//
 
 export const ON_CLICK_ALL = () => {
   return {

@@ -14,11 +14,10 @@ class ToDoList extends Component {
   }
 
   render() {
-    const { toDoList, onClickPen } = this.props;
-
+    const { todoList, onClickPen } = this.props;
     return (
       <div className="ContentToDoList">
-        {toDoList.map((item) => {
+        {todoList.map((item) => {
           return <Item key={item.id} item={item} onClickPen={onClickPen} />;
         })}
       </div>
@@ -28,7 +27,7 @@ class ToDoList extends Component {
 
 const mapStateToProps = (state, { tabKey }) => {
   return {
-    toDoList: getTodos(state, tabKey),
+    todoList: getTodos(state, tabKey),
   };
 };
 

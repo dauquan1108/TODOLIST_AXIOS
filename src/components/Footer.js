@@ -3,24 +3,14 @@ import "./HeaDer.css";
 import "./index.css";
 //-----
 import { connect } from "react-redux";
-import { ON_DELETE_TODO_LIST_ALL } from "../actions/index";
-import CallApi from "../utils/CallApi";
-import * as ConFig from "../utils/Config";
+import { ON_DELETE_TODO_LIST_ALL_SAGA } from "../actions/index";
 ///--------
 import { getFooterTodos } from "../selectors";
 
 class Footer extends Component {
   removeAllTodoList = () => {
-    // const { onDeleteAllTodoList, todo } = this.props;
-    // onDeleteAllTodoList(
-    //   todo.forEach((todo) => {
-    //     if (todo.isComplete === true) {
-    //       CallApi("delete", `${ConFig.API_URL}/${todo.id}`).catch((error) => {
-    //         console.log("Loi: ", error, "id ", todo.id);
-    //       });
-    //     }
-    //   })
-    // );
+    const { onDeleteAllTodoListSaga, todo } = this.props;
+    onDeleteAllTodoListSaga(todo);
   };
 
   onClickAll = () => {
@@ -37,13 +27,7 @@ class Footer extends Component {
   };
 
   render() {
-    const {
-      todo,
-      onClickAllS,
-      onClickActiveS,
-      onClickCompletedS,
-      todoNews,
-    } = this.props;
+    const { todo, todoNews, tabKey } = this.props;
     return (
       <div className="FooTer">
         <footer className="footer">
@@ -54,7 +38,7 @@ class Footer extends Component {
             <li>
               <a
                 href="#All"
-                //className={onClickAllS ? "selected" : ""}
+                className={tabKey === "ALL" ? "selected" : ""}
                 onClick={this.onClickAll}
               >
                 All
@@ -63,7 +47,7 @@ class Footer extends Component {
             <li>
               <a
                 href="#active"
-                //className={onClickActiveS ? "selected" : ""}
+                className={tabKey === "ACTIVE" ? "selected" : ""}
                 onClick={this.onClickActive}
               >
                 Active
@@ -72,15 +56,14 @@ class Footer extends Component {
             <li>
               <a
                 href="#completed"
-                // className={onClickCompletedS ? "selected" : ""}
-                className="onClickCompletedS"
+                className={tabKey === "COMPLETED" ? "selected" : ""}
                 onClick={this.onClickCompleted}
               >
                 Completed
               </a>
             </li>
           </ul>
-          {todoNews && (
+          {todo.filter((item) => item.isComplete).length > 0 && (
             <a
               href="#ClearCompleted"
               className="clear-completed"
@@ -96,15 +79,15 @@ class Footer extends Component {
 }
 
 const mapStateToProps = (state) => {
-  // console.log("chay  lai");
   return {
     todoNews: getFooterTodos(state),
+    todo: state.toDoList,
   };
 };
 const mapDispatchToProps = (dispatch, props) => {
   return {
-    onDeleteAllTodoList: () => {
-      dispatch(ON_DELETE_TODO_LIST_ALL());
+    onDeleteAllTodoListSaga: (todoList) => {
+      dispatch(ON_DELETE_TODO_LIST_ALL_SAGA(todoList));
     },
   };
 };

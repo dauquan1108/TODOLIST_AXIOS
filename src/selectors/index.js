@@ -4,8 +4,7 @@ const getKey = (state, tabKey) => tabKey;
 const getAll = (state, tabKey) => state.toDoList;
 
 export const getFooterTodos = createSelector([getAll, getKey], (todoAll) => {
-  // tính ra số phần tử đã được active
-  const count = todoAll.filter((item) => !item.isComplete).length || 0;
+  const count = todoAll.filter((item) => !item.isComplete).length;
   return count;
 });
 

@@ -52,7 +52,9 @@ class TodoListAll extends Component {
         <div className="TodoList">
           <HeaDer toDoEditing={toDoEditing} onClean={this.onClean} />
           <ToDoList tabKey={tabKey} onClickPen={this.onClickPen} />
-          {todoListNew.length > 0 && <Footer onChangeTab={this.onChangeTab} />}
+          {todoListNew.length > 0 && (
+            <Footer onChangeTab={this.onChangeTab} tabKey={tabKey} />
+          )}
         </div>
       </div>
     );
