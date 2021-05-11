@@ -79,17 +79,6 @@ class Menu extends Component {
                     </NavLink>
                   </li>
                 </ul>
-                {/* <form className="d-flex">
-                  <input
-                    className="form-control me-2"
-                    type="search"
-                    placeholder="Search"
-                    aria-label="Search"
-                  />
-                  <button className="btn btn-outline-success" type="submit">
-                    Search
-                  </button>
-                </form> */}
               </div>
             </div>
           </nav>
@@ -98,7 +87,7 @@ class Menu extends Component {
               <TodoListAll />
             </Route>
             <Route path="/service">
-              <Service />
+              <Service match={"/service"} />
             </Route>
             <Route path="/disabled">
               <Disabled />

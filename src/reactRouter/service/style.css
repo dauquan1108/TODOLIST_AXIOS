@@ -1,0 +1,10 @@
+.Topics input {
+    margin-left: 30%;
+    border: 1px solid;
+    width: 30%;
+}
+
+.Topics h3 {
+    margin-top: 40px;
+    text-align: center;
+}
