@@ -5,9 +5,22 @@ import Topics from "./service/Topics";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 
 class Service extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      checkPrompt: false,
+      value: "",
+    };
+  }
+  onClick = (checkPrompt) => {
+    debugger;
+    this.setState({
+      checkPrompt: checkPrompt,
+    });
+  };
   render() {
     const { match } = this.props;
-    console.log("xxxx", match);
+    const { checkPrompt } = this.state;
     return (
       <div className="Service">
         <h1> Đây là trang Service</h1>
@@ -21,15 +34,13 @@ class Service extends Component {
                 <Link to={`${match}/topics-Service`}>Topics</Link>
               </li>
             </ul>
-
             <hr />
-
             <Switch>
               <Route exact path={`${match}/Home-Service`}>
                 <Home />
               </Route>
               <Route path={`${match}/topics-Service`}>
-                <Topics />
+                <Topics checkPrompt onClick={this.onClick} />
               </Route>
             </Switch>
           </div>

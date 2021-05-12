@@ -6,7 +6,6 @@ class Topics extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      checkPrompt: true,
       value: "",
     };
   }
@@ -24,15 +23,8 @@ class Topics extends Component {
     this.clearValue();
     e.preventDefault();
   };
-
-  //   onClickButton = (checkPrompt) => {
-  //     this.setState({
-  //       checkPrompt: checkPrompt,
-  //     });
-  //   };
-
   render() {
-    const { checkPrompt } = this.state;
+    const { checkPrompt, onClick } = this.props;
     return (
       <div className="Topics">
         <form onSubmit={this.handleSubmit}>
@@ -43,20 +35,32 @@ class Topics extends Component {
             onChange={this.handleInput}
             autoFocus
           />
-          <button
-            className="button"
-            type="submit"
-            //onClick={() => this.onClickButton(false)}
-          >
+
+          <button className="button" type="submit">
             Submit
           </button>
-          <Prompt
-            when={checkPrompt}
-            message={(location) =>
-              `Bạn có muốn thoát khỏi trang này không  ${location.pathname}`
-            }
-          />
         </form>
+        <button
+          onClick={() => {
+            onClick(true);
+          }}
+        >
+          prompt true
+        </button>
+        <br />
+        <Prompt
+          when={checkPrompt}
+          message={(location) =>
+            `Bạn có muốn thoát khỏi trang này không  ${location.pathname}`
+          }
+        />
+        <button
+          onClick={() => {
+            onClick(false);
+          }}
+        >
+          prompt false
+        </button>
         <h3> React Router Prompt</h3>
       </div>
     );
