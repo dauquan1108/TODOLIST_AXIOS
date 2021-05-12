@@ -16,15 +16,17 @@ import appReducers from "./reducers/index";
 // npm install --save redux-devtools-extension -----
 import { composeWithDevTools } from "redux-devtools-extension";
 
-//-----Redux Saga-----
-//import Generators from "../src/components/Generators"; // research saga
-
 // Redux-Saga
 import createSagaMiddleware from "redux-saga";
 import mySaga from "./sagas/";
 
 //bootstrap
 import "bootstrap/dist/css/bootstrap.min.css";
+
+//------------ Ant Design => npm install antd --save
+import "antd/dist/antd.css";
+
+// import React, { useState } from "react";
 
 // Middleware Saga
 const sagaMiddleware = createSagaMiddleware();

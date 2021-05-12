@@ -25,9 +25,9 @@ class ToDoList extends Component {
   }
 }
 
-const mapStateToProps = (state, { tabKey }) => {
+const mapStateToProps = (state, { status }) => {
   return {
-    todoList: getTodos(state, tabKey),
+    todoList: getTodos(state, status),
   };
 };
 

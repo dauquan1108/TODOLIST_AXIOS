@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import "./style.css";
 //----------- React Router
-import { BrowserRouter as Prompt } from "react-router-dom";
+import { BrowserRouter as Prompt, withRouter } from "react-router-dom";
 class Topics extends Component {
   constructor(props) {
     super(props);
@@ -25,6 +25,7 @@ class Topics extends Component {
   };
   render() {
     const { checkPrompt, onClick } = this.props;
+    console.log(this.props);
     return (
       <div className="Topics">
         <form onSubmit={this.handleSubmit}>

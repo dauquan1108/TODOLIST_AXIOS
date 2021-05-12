@@ -1,18 +1,18 @@
 import { createSelector } from "reselect";
 
-const getKey = (state, tabKey) => tabKey;
-const getAll = (state, tabKey) => state.toDoList;
+const getKey = (state, status) => status;
+const getAll = (state, status) => state.toDoList;
 
 export const getFooterTodos = createSelector([getAll, getKey], (todoAll) => {
   const count = todoAll.filter((item) => !item.isComplete).length;
   return count;
 });
 
-export const getTodos = createSelector([getAll, getKey], (todoAll, tabKey) => {
-  switch (tabKey) {
-    case "ACTIVE":
+export const getTodos = createSelector([getAll, getKey], (todoAll, status) => {
+  switch (status) {
+    case "active":
       return todoAll.filter((item) => !item.isComplete); // array moi
-    case "COMPLETED":
+    case "completed":
       return todoAll.filter((item) => item.isComplete); // array moi
     default:
       return [...todoAll];

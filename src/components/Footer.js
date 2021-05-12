@@ -14,20 +14,20 @@ class Footer extends Component {
   };
 
   onClickAll = () => {
-    const { onChangeTab } = this.props;
-    onChangeTab("ALL");
+    const { onStatus } = this.props;
+    onStatus("all");
   };
   onClickActive = () => {
-    const { onChangeTab } = this.props;
-    onChangeTab("ACTIVE");
+    const { onStatus } = this.props;
+    onStatus("active");
   };
   onClickCompleted = () => {
-    const { onChangeTab } = this.props;
-    onChangeTab("COMPLETED");
+    const { onStatus } = this.props;
+    onStatus("completed");
   };
 
   render() {
-    const { todo, todoNews, tabKey } = this.props;
+    const { todo, todoNews, status } = this.props;
     return (
       <div className="FooTer">
         <footer className="footer">
@@ -38,7 +38,7 @@ class Footer extends Component {
             <li>
               <a
                 href="#All"
-                className={tabKey === "ALL" ? "selected" : ""}
+                className={status === "all" ? "selected" : ""}
                 onClick={this.onClickAll}
               >
                 All
@@ -47,7 +47,7 @@ class Footer extends Component {
             <li>
               <a
                 href="#active"
-                className={tabKey === "ACTIVE" ? "selected" : ""}
+                className={status === "active" ? "selected" : ""}
                 onClick={this.onClickActive}
               >
                 Active
@@ -56,7 +56,7 @@ class Footer extends Component {
             <li>
               <a
                 href="#completed"
-                className={tabKey === "COMPLETED" ? "selected" : ""}
+                className={status === "completed" ? "selected" : ""}
                 onClick={this.onClickCompleted}
               >
                 Completed
