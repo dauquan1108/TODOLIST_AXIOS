@@ -6,7 +6,8 @@ import {
   BrowserRouter as Router,
   Switch,
   Route,
-  withRouter,
+  Link,
+  //withRouter,
 } from "react-router-dom";
 
 //------------ Ant Design => npm install antd --save
@@ -16,34 +17,14 @@ class Service extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      checkPrompt: false,
-      value: "",
       isNextPage: false,
       url: "",
       isModalVisible: false,
     };
   }
-  onClick = (checkPrompt) => {
-    this.setState({
-      checkPrompt: checkPrompt,
-    });
-  };
-  handleClick = (path) => {
-    const { history } = this.props;
-    console.log("history", history.location.pathname);
-    if (history.location.pathname !== path) {
-      this.setState({ isNextPage: true, url: path });
-    }
-  };
-  handNextPage = () => {
-    const { url } = this.state;
-    const { history } = this.props;
-    url && history.push(url);
-  };
 
-  showModal = () => {
-    this.setState({ isModalVisible: true });
-  };
+  handleClick = () => {};
+
   handleOk = () => {
     this.setState({ isModalVisible: false });
   };
@@ -56,21 +37,18 @@ class Service extends Component {
     const { isNextPage, isModalVisible } = this.state;
     return (
       <div className="Service">
-        {isNextPage && <button onClick={this.handNextPage}>OK cccc</button>}
-
-        <div className="Modal">
-          <Button type="primary" onClick={this.showModal}>
-            Open Modal
-          </Button>
-          <Modal
-            title="Basic Modal"
-            visible={isModalVisible}
-            onOk={this.handleOk}
-            onCancel={this.handleCancel}
-          >
-            <p>Bạn có muốn chuyển sang trang khác không ?.</p>
-          </Modal>
-        </div>
+        {isNextPage && (
+          <div className="Modal">
+            <Modal
+              title="Basic Modal"
+              visible={isModalVisible}
+              onOk={this.handleOk}
+              onCancel={this.handleCancel}
+            >
+              <p>Bạn có muốn chuyển sang trang khác không ?.</p>
+            </Modal>
+          </div>
+        )}
         <h1> Đây là trang Service</h1>
         <div>
           <ul>
@@ -79,35 +57,26 @@ class Service extends Component {
                 onClick={() => this.handleClick("/service/Home-Service")}
                 style={{ cursor: "pointer" }}
               >
-                Home
+                <Link to={`${match}/Home-Service`} onClick={this.handleClick}>
+                  Home
+                </Link>
               </div>
             </li>
             <li>
-              <div
-                onClick={() => this.handleClick("/service/topics-Service")}
-                style={{ cursor: "pointer" }}
-              >
+              <Link to={`${match}/topics-Service`} onClick={this.handleClick}>
                 Topics
-              </div>
+              </Link>
             </li>
           </ul>
           <hr />
           <Switch>
-            <Route
-              exact
-              path={`${match.path}/Home-Service`}
-              children={<Home />}
-            />
-
-            <Route
-              exact
-              path={`${match.path}/topics-Service`}
-              children={<Topics checkPrompt onClick={this.onClick} />}
-            />
+            <Route exact path={`${match}/Home-Service`} children={<Home />} />
+            <Route path={`${match}/topics-Service`} children={<Topics />} />
           </Switch>
         </div>
       </div>
     );
   }
 }
-export default withRouter(Service);
+export default Service;
+// withRouter( )

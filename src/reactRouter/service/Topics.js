@@ -1,16 +1,21 @@
 import React, { Component } from "react";
 import "./style.css";
-//----------- React Router
-import { BrowserRouter as Prompt, withRouter } from "react-router-dom";
+
+//------- React router----------//
+import { Prompt } from "react-router-dom";
+
 class Topics extends Component {
   constructor(props) {
     super(props);
     this.state = {
       value: "",
+      checkPrompt: false,
     };
   }
   handleInput = (e) => {
-    this.setState({ value: e.target.value });
+    const value = e.target.value.length > 0;
+    console.log({ value });
+    this.setState({ value: e.target.value, checkPrompt: value });
   };
   clearValue = () => {
     this.setState({
@@ -19,16 +24,22 @@ class Topics extends Component {
   };
   handleSubmit = (e) => {
     const { value } = this.state;
-    alert(value);
+    this.setState({ checkPrompt: false });
+    e.target.reset();
     this.clearValue();
     e.preventDefault();
   };
   render() {
-    const { checkPrompt, onClick } = this.props;
-    console.log(this.props);
+    const { checkPrompt } = this.state;
     return (
       <div className="Topics">
         <form onSubmit={this.handleSubmit}>
+          <Prompt
+            when={checkPrompt}
+            message={(location) =>
+              `Ban co muon di toi trang ${location.pathname}`
+            }
+          />
           <input
             type="text"
             placeholder="What needs to be done ?"
@@ -36,32 +47,12 @@ class Topics extends Component {
             onChange={this.handleInput}
             autoFocus
           />
-
-          <button className="button" type="submit">
-            Submit
-          </button>
+          <button className="button">Submit</button>
+          <h1>
+            Blocking?{" "}
+            {checkPrompt ? "Yes, click a link or the back button" : "Nope"}
+          </h1>
         </form>
-        <button
-          onClick={() => {
-            onClick(true);
-          }}
-        >
-          prompt true
-        </button>
-        <br />
-        <Prompt
-          when={checkPrompt}
-          message={(location) =>
-            `Bạn có muốn thoát khỏi trang này không  ${location.pathname}`
-          }
-        />
-        <button
-          onClick={() => {
-            onClick(false);
-          }}
-        >
-          prompt false
-        </button>
         <h3> React Router Prompt</h3>
       </div>
     );
