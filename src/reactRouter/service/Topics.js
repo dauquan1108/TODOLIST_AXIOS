@@ -46,6 +46,7 @@ class Topics extends Component {
             value={this.state.value}
             onChange={this.handleInput}
             autoFocus
+            required
           />
           <button className="button">Submit</button>
           <h1>

@@ -9,12 +9,12 @@ import {
   ON_CHECK_ALL_TODO_LIST_FALSE_SAGA,
   ADD_TODO_SAGA,
 } from "../actions/index";
-let status = true;
 class HeaDer extends Component {
   constructor(props) {
     super(props);
     this.state = {
       value: "",
+      status: true,
       cleanToDoEditing: {},
     };
     this.input = React.createRef();
@@ -34,12 +34,17 @@ class HeaDer extends Component {
   };
 
   onClickCheckAllItem = () => {
+    const { status } = this.state;
     if (status) {
       this.onCheckAllTodoList_True();
-      return (status = false);
+      this.setState({
+        status: false,
+      });
     } else {
       this.onCheckAllTodoList_false();
-      return (status = true);
+      this.setState({
+        status: true,
+      });
     }
   };
 
@@ -75,6 +80,7 @@ class HeaDer extends Component {
   };
 
   render() {
+    const { status } = this.state;
     const check = status ? " image" : " image_";
     return (
       <div className="Header">
