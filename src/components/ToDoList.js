@@ -5,7 +5,7 @@ import "./HeaDer.css";
 import { connect } from "react-redux";
 import { ON_TODO_LIST_VIEW_ALL_SAGA } from "../actions/index";
 //Reselect
-import { getTodos } from "../selectors";
+import { getTodoList } from "../selectors";
 
 class ToDoList extends Component {
   componentDidMount() {
@@ -27,11 +27,11 @@ class ToDoList extends Component {
 
 const mapStateToProps = (state, { status }) => {
   return {
-    todoList: getTodos(state, status),
+    todoList: getTodoList(state, status),
   };
 };
 
-const mapDispatchToProps = (dispatch, props) => {
+const mapDispatchToProps = (dispatch) => {
   return {
     getList: () => {
       console.log(1);
